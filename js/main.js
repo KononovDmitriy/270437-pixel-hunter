@@ -3,8 +3,8 @@
 const SCREENS = [`central`, `greeting`, `rules`, `game-1`, `game-2`, `game-3`,
   `stats`];
 const Keys = {
-  'LEFT': 37,
-  'RIGHT': 39
+  LEFT: 37,
+  RIGHT: 39
 };
 
 const BUTTON_ARROW_STYLE =
@@ -29,13 +29,10 @@ let screensNodes = [];
 let curScr = 0;
 
 const getScreensNodes = () => {
-
-  SCREENS.forEach((screen) => {
-    let node = (screen === `central`) ?
+  screensNodes = SCREENS.map((screen) => {
+    return (screen === `central`) ?
       document.querySelector(`.${screen}`).cloneNode(true) :
       document.querySelector(`#${screen}`);
-
-    screensNodes.push(node);
   });
 };
 
