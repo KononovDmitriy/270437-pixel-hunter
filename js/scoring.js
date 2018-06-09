@@ -9,14 +9,14 @@ const scoring = (playerAnswers, playerLife) => {
     throw new Error(`playerLife expected number`);
   }
 
-  for (let i = 0; i < playerAnswers.length; i++) {
-    if (!playerAnswers[i].answer) {
+  for (let currAnswer of playerAnswers) {
+    if (!currAnswer.answer) {
       return -1;
     }
 
     score += 100;
-    score += (playerAnswers[i].time < 10) ? 50 : 0;
-    score += (playerAnswers[i].time > 20) ? -50 : 0;
+    score += (currAnswer.time < 10) ? 50 : 0;
+    score += (currAnswer.time > 20) ? -50 : 0;
   }
 
   score += 50 * playerLife;
