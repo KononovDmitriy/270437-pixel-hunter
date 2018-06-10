@@ -12,7 +12,7 @@ const testingTimer = (time) => {
 };
 
 describe(`Module timer`, () => {
-  it(`Incoming argument is a number`, () => {
+  it(`it should throw Error if the input value is not an number`, () => {
     assert.throws(() => timer(`15`));
     assert.throws(() => timer(null));
     assert.throws(() => timer(undefined));
@@ -22,33 +22,33 @@ describe(`Module timer`, () => {
     assert.doesNotThrow(() => timer(3333));
   });
 
-  describe(`Return values`, () => {
-    it(`Return value - Object`, () => {
+  describe(`Test return values`, () => {
+    it(`it should return Object`, () => {
       assert.isObject(timer(10));
       assert.isObject(timer(4444));
       assert.isObject(timer(1));
     });
 
-    it(`object has a method reduce`, () => {
+    it(`it has 'reduce' property`, () => {
       const tmpTimer = timer(1);
       assert.equal(typeof tmpTimer.reduce, `function`);
     });
   });
 
-  describe(`Testing work`, () => {
-    it(`timer - 1s`, () => {
+  describe(`Test work`, () => {
+    it(`it should return 'true' after 1 second`, () => {
       testingTimer(1);
     });
 
-    it(`timer - 5s`, () => {
+    it(`it should return 'true' after 5 second`, () => {
       testingTimer(5);
     });
 
-    it(`timer - 15s`, () => {
+    it(`it should return 'true' after 15 second`, () => {
       testingTimer(15);
     });
 
-    it(`timer - 55s`, () => {
+    it(`it should return 'true' after 55 second`, () => {
       testingTimer(55);
     });
   });

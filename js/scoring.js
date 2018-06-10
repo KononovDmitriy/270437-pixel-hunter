@@ -1,5 +1,4 @@
 const scoring = (playerAnswers, playerLife) => {
-  let score = 0;
 
   if (!Array.isArray(playerAnswers)) {
     throw new Error(`playerAnswers expected array`);
@@ -9,19 +8,27 @@ const scoring = (playerAnswers, playerLife) => {
     throw new Error(`playerLife expected number`);
   }
 
-  for (let currAnswer of playerAnswers) {
-    if (!currAnswer.answer) {
-      return -1;
+  const points = playerAnswers.reduce((pointsSum, curEl) => {
+
+    if (curEl.answer) {
+      pointsSum.positiveAnswCnt++;
+      pointsSum.score += 100;
     }
 
-    score += 100;
-    score += (currAnswer.time < 10) ? 50 : 0;
-    score += (currAnswer.time > 20) ? -50 : 0;
+    pointsSum.score += (curEl.time < 10) ? 50 : 0;
+    pointsSum.score += (curEl.time > 20) ? -50 : 0;
+
+    return pointsSum;
+
+  }, {score: 0, positiveAnswCnt: 0});
+
+  if (points.positiveAnswCnt < 10) {
+    return -1;
   }
 
-  score += 50 * playerLife;
+  points.score += 50 * playerLife;
 
-  return score;
+  return points.score;
 };
 
 export default scoring;
