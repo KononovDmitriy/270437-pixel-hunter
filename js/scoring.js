@@ -8,6 +8,10 @@ const scoring = (playerAnswers, playerLife) => {
     throw new Error(`playerLife expected number`);
   }
 
+  if (playerAnswers.length < 10) {
+    return -1;
+  }
+
   const points = playerAnswers.reduce((pointsSum, curEl) => {
 
     if (curEl.answer) {
@@ -21,10 +25,6 @@ const scoring = (playerAnswers, playerLife) => {
     return pointsSum;
 
   }, {score: 0, positiveAnswCnt: 0});
-
-  if (points.positiveAnswCnt < 10) {
-    return -1;
-  }
 
   points.score += 50 * playerLife;
 

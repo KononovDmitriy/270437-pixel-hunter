@@ -5,22 +5,19 @@ const TEST_QUERIES = {
   gameOverTest1: {
     answers: [{answer: true, time: 12}, {answer: true, time: 12},
       {answer: false, time: 12}, {answer: true, time: 12}, {answer: true, time: 12},
-      {answer: true, time: 12}, {answer: false, time: 12}, {answer: true, time: 12},
-      {answer: true, time: 12}, {answer: true, time: 12}, {answer: true, time: 12}],
+      {answer: true, time: 12}, {answer: false, time: 12}, {answer: true, time: 12}],
     lives: 3,
   },
 
   gameOverTest2: {
-    answers: [{answer: false, time: 12}, {answer: false, time: 12},
-      {answer: false, time: 12}, {answer: false, time: 12}, {answer: false, time: 12},
-      {answer: false, time: 12}, {answer: false, time: 12}, {answer: false, time: 12},
-      {answer: false, time: 12}, {answer: false, time: 12}],
-    lives: 3,
+    answers: [{answer: false, time: 12}],
+    lives: 0,
   },
 
   gameOverTest3: {
-    answers: [{answer: false, time: 12}],
-    lives: 3,
+    answers: [{answer: true, time: 12}, {answer: true, time: 12}, {answer: true, time: 12},
+      {answer: true, time: 12}, {answer: true, time: 12}, {answer: true, time: 12}],
+    lives: 2,
   },
 
   returnsTest1: {
