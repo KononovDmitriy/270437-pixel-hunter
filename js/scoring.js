@@ -15,20 +15,49 @@ const scoring = (playerAnswers, playerLife) => {
   const points = playerAnswers.reduce((pointsSum, curEl) => {
 
     if (curEl.answer) {
-      pointsSum.positiveAnswCnt++;
-      pointsSum.score += 100;
+      pointsSum.answer.positiveAnswCnt++;
+      pointsSum.answer.answSum += 100;
     }
 
-    pointsSum.score += (curEl.time < 10) ? 50 : 0;
-    pointsSum.score += (curEl.time > 20) ? -50 : 0;
+    if (curEl.time < 10) {
+      pointsSum.fast.fastCnt++;
+      pointsSum.fast.fastSum += 50;
+    }
+
+    if (curEl.time > 20) {
+      pointsSum.slow.slowCnt++;
+      pointsSum.slow.slowSum -= 50;
+    }
 
     return pointsSum;
 
-  }, {score: 0, positiveAnswCnt: 0});
+  }, {
+    answer: {
+      positiveAnswCnt: 0,
+      answSum: 0
+    },
+    fast: {
+      fastCnt: 0,
+      fastSum: 0
+    },
+    slow: {
+      slowCnt: 0,
+      slowSum: 0
+    },
+    lives: {
+      livesCnt: 0,
+      livesSum: 0
+    },
+    scores: 0
+  });
 
-  points.score += 50 * playerLife;
+  points.lives.livesCnt = playerLife;
+  points.lives.livesSum = 50 * playerLife;
 
-  return points.score;
+  points.scores = points.answer.answSum + points.fast.fastSum +
+    points.slow.slowSum + points.lives.livesSum;
+
+  return points;
 };
 
 export default scoring;
