@@ -1,17 +1,19 @@
-// utils.js
+const mainNode = document.querySelector(`.central`);
 
 export default {
   changeScreen: (screen) => {
-    const mainNode = document.querySelector(`.central`);
-
     mainNode.innerHTML = ``;
     mainNode.appendChild(screen);
   },
 
-  createDom: (template) => {
-    const domObj = document.createElement(`div`);
-    domObj.innerHTML = template;
+  createDom: (template, header) => {
+    const domObject = document.createElement(`div`);
+    domObject.innerHTML = template;
 
-    return domObj;
+    if (header) {
+      domObject.insertBefore(header, domObject.firstChild);
+    }
+
+    return domObject;
   }
 };

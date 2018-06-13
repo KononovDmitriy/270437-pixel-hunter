@@ -72,7 +72,7 @@ const TEST_QUERIES = {
       {answer: true, time: 18}, {answer: true, time: 21}, {answer: true, time: 18},
       {answer: false, time: 21}],
     lives: 2,
-    return: 800
+    return: 850
   },
 
   returnsTest7: {
@@ -82,7 +82,7 @@ const TEST_QUERIES = {
       {answer: true, time: 3}, {answer: true, time: 21}, {answer: true, time: 18},
       {answer: false, time: 21}, {answer: false, time: 2}, {answer: true, time: 21}],
     lives: 1,
-    return: 1050
+    return: 1000
   },
 
 
@@ -123,25 +123,25 @@ describe(`Module scoring`, () => {
 
   it(`it should return correct values`, () => {
     assert.equal(scoring(TEST_QUERIES.returnsTest1.answers,
-        TEST_QUERIES.returnsTest1.lives), TEST_QUERIES.returnsTest1.return);
+        TEST_QUERIES.returnsTest1.lives).scores, TEST_QUERIES.returnsTest1.return);
 
     assert.equal(scoring(TEST_QUERIES.returnsTest2.answers,
-        TEST_QUERIES.returnsTest2.lives), TEST_QUERIES.returnsTest2.return);
+        TEST_QUERIES.returnsTest2.lives).scores, TEST_QUERIES.returnsTest2.return);
 
     assert.equal(scoring(TEST_QUERIES.returnsTest3.answers,
-        TEST_QUERIES.returnsTest3.lives), TEST_QUERIES.returnsTest3.return);
+        TEST_QUERIES.returnsTest3.lives).scores, TEST_QUERIES.returnsTest3.return);
 
     assert.equal(scoring(TEST_QUERIES.returnsTest4.answers,
-        TEST_QUERIES.returnsTest4.lives), TEST_QUERIES.returnsTest4.return);
+        TEST_QUERIES.returnsTest4.lives).scores, TEST_QUERIES.returnsTest4.return);
 
     assert.equal(scoring(TEST_QUERIES.returnsTest5.answers,
-        TEST_QUERIES.returnsTest5.lives), TEST_QUERIES.returnsTest5.return);
+        TEST_QUERIES.returnsTest5.lives).scores, TEST_QUERIES.returnsTest5.return);
 
     assert.equal(scoring(TEST_QUERIES.returnsTest6.answers,
-        TEST_QUERIES.returnsTest6.lives), TEST_QUERIES.returnsTest6.return);
+        TEST_QUERIES.returnsTest6.lives).scores, TEST_QUERIES.returnsTest6.return);
 
     assert.equal(scoring(TEST_QUERIES.returnsTest7.answers,
-        TEST_QUERIES.returnsTest7.lives), TEST_QUERIES.returnsTest7.return);
+        TEST_QUERIES.returnsTest7.lives).scores, TEST_QUERIES.returnsTest7.return);
 
   });
 });
