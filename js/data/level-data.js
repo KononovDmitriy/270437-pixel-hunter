@@ -1,10 +1,5 @@
 import pictures from './pictures-data.js';
-
-const GameScreens = {
-  SCREEN1: `screen-game-1`,
-  SCREEN2: `screen-game-2`,
-  SCREEN3: `screen-game-3`,
-};
+import GameScreens from '../game-screen-types.js';
 
 const Titles = {
   TITLE1: `Найдите рисунок среди изображений`,
