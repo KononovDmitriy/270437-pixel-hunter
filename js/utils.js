@@ -7,13 +7,13 @@ export default {
   },
 
   createDom: (template, header) => {
-    const domObj = document.createElement(`div`);
-    domObj.innerHTML = template;
+    const domObject = document.createElement(`div`);
+    domObject.innerHTML = template;
 
     if (header) {
-      domObj.insertBefore(header, domObj.firstChild);
+      domObject.insertBefore(header, domObject.firstChild);
     }
 
-    return domObj;
+    return domObject;
   }
 };

@@ -4,11 +4,17 @@ import gameStatus from './data/game-status-data.js';
 import utils from './utils.js';
 import scoring from './scoring.js';
 
-import introScr from './templates/screen-intro.js';
-import greetScr from './templates/screen-greeting.js';
-import rulesScr from './templates/screen-rules.js';
-import gameScr from './templates/screen-game.js';
-import statScr from './templates/screen-stats.js';
+import introScreen from './templates/screen-intro.js';
+import greetScreen from './templates/screen-greeting.js';
+import rulesScreen from './templates/screen-rules.js';
+import gameScreen from './templates/screen-game.js';
+import statScreen from './templates/screen-stats.js';
+
+const GameScreens = {
+  SCREEN1: `screen-game-1`,
+  SCREEN2: `screen-game-2`,
+  SCREEN3: `screen-game-3`,
+};
 
 const initGame = () => {
   gameStatus.playerName = ``;
@@ -19,71 +25,71 @@ const initGame = () => {
 };
 
 const checkScreenGame1 = (answer) => {
-  const rezult = (answer.img1 === gameStatus.currLevel.data.img1.answer &&
+  const result = (answer.img1 === gameStatus.currLevel.data.img1.answer &&
     answer.img2 === gameStatus.currLevel.data.img2.answer) ? true : false;
 
   gameStatus.scores.push(
       {
-        answer: rezult,
+        answer: result,
         time: 15
       }
   );
 
-  return rezult;
+  return result;
 };
 
 const checkScreenGame2 = (answer) => {
-  const rezult = (answer.img1 === gameStatus.currLevel.data.img1.answer) ? true :
+  const result = (answer.img1 === gameStatus.currLevel.data.img1.answer) ? true :
     false;
 
   gameStatus.scores.push(
       {
-        answer: rezult,
+        answer: result,
         time: 15
       }
   );
 
-  return rezult;
+  return result;
 };
 
 const checkScreenGame3 = (answer) => {
-  const rezult = (answer.img1 === gameStatus.currLevel.data.answer) ? true :
+  const result = (answer.img1 === gameStatus.currLevel.data.answer) ? true :
     false;
 
   gameStatus.scores.push(
       {
-        answer: rezult,
+        answer: result,
         time: 15
       }
   );
 
-  return rezult;
+  return result;
 };
 
-const checkRezult = (answer) => {
-  let rezult;
+const checkresult = (answer) => {
+  let result;
 
   switch (gameStatus.currLevel.screen) {
-    case `screen-game-1`:
-      rezult = checkScreenGame1(answer);
+    case GameScreens.SCREEN1:
+      result = checkScreenGame1(answer);
       break;
-    case `screen-game-2`:
-      rezult = checkScreenGame2(answer);
+    case GameScreens.SCREEN2:
+      result = checkScreenGame2(answer);
       break;
-    case `screen-game-3`:
-      rezult = checkScreenGame3(answer);
+    case GameScreens.SCREEN3:
+      result = checkScreenGame3(answer);
       break;
   }
 
-  return rezult;
+  return result;
 };
 
 const gameCallback = (answer) => {
-  if (!checkRezult(answer)) {
+  if (!checkresult(answer)) {
     gameStatus.lives--;
 
     if (gameStatus.lives < 0) {
-      utils.changeScreen(statScr(scoring(gameStatus.scores, gameStatus.lives), gameStatus.scores));
+      utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives), gameStatus.scores));
       return;
     }
   }
@@ -92,9 +98,9 @@ const gameCallback = (answer) => {
   gameStatus.currLevel = levelData[gameStatus.currLevelNum];
 
   if (gameStatus.currLevelNum < levelData.length) {
-    utils.changeScreen(gameScr(gameStatus, gameStatus.scores, gameCallback));
+    utils.changeScreen(gameScreen(gameStatus, gameStatus.scores, gameCallback));
   } else {
-    utils.changeScreen(statScr(scoring(gameStatus.scores, gameStatus.lives), gameStatus.scores));
+    utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives), gameStatus.scores));
   }
 };
 
@@ -102,22 +108,22 @@ const rulesScrCallback = (name) => {
   gameStatus.playerName = name;
   gameStatus.currLevel = levelData[gameStatus.currLevelNum];
 
-  utils.changeScreen(gameScr(gameStatus, gameStatus.scores, gameCallback));
+  utils.changeScreen(gameScreen(gameStatus, gameStatus.scores, gameCallback));
 };
 
 const greetScrCallback = () => {
   initGame();
-  utils.changeScreen(rulesScr(rulesScrCallback));
+  utils.changeScreen(rulesScreen(rulesScrCallback));
 };
 
-const introScrCallback = () => {
-  utils.changeScreen(greetScr(greetScrCallback));
+const introScreenCallback = () => {
+  utils.changeScreen(greetScreen(greetScrCallback));
 };
 
-utils.changeScreen(introScr(introScrCallback));
+utils.changeScreen(introScreen(introScreenCallback));
 
 export default {
   changeGreetengScreen: () => {
-    utils.changeScreen(greetScr(greetScrCallback));
+    utils.changeScreen(greetScreen(greetScrCallback));
   }
 };

@@ -1,17 +1,27 @@
+const StatsPictures = {
+  UNKNOWN: `unknown`,
+  CORRECT: `correct`,
+  WRONG: `wrong`,
+  FAST: `fast`,
+  SLOW: `slow`
+};
+
 export default (scores) => {
 
   const classes = [];
   for (let i = 0; i < 10; i++) {
     if (scores[i] !== undefined) {
       if (scores[i].answer) {
-        let currClass = (scores[i].times < 10) ? `fast` : `correct`;
-        currClass = (scores[i].times > 20) ? `slow` : `correct`;
-        classes.push(currClass);
+        let currentClass = (scores[i].times < 10) ? StatsPictures.FAST :
+          StatsPictures.CORRECT;
+        currentClass = (scores[i].times > 20) ? StatsPictures.SLOW :
+          StatsPictures.CORRECT;
+        classes.push(currentClass);
       } else {
-        classes.push(`wrong`);
+        classes.push(StatsPictures.WRONG);
       }
     } else {
-      classes.push(`unknown`);
+      classes.push(StatsPictures.UNKNOWN);
     }
   }
 

@@ -3,6 +3,12 @@ import footer from './screen-footer.js';
 import stats from './stats.js';
 import utils from '../utils.js';
 
+const GameScreens = {
+  SCREEN1: `screen-game-1`,
+  SCREEN2: `screen-game-2`,
+  SCREEN3: `screen-game-3`,
+};
+
 const getGameScreen1 = (gameStatus, scores, callback) => {
   const GAME_SCREEN = `
     <div class="game">
@@ -37,24 +43,24 @@ const getGameScreen1 = (gameStatus, scores, callback) => {
     </div>
     ${footer}`;
 
-  const checkGrp = (inputGrp) => {
-    let grpChck = false;
+  const checkGroup = (inputGrp) => {
+    let groupCheck = false;
 
     for (let input of inputGrp) {
       if (input.checked) {
-        grpChck = true;
+        groupCheck = true;
         break;
       }
     }
 
-    return grpChck;
+    return groupCheck;
   };
 
   const checkResult = () => {
-    const chckGrp1 = checkGrp(inputGrp1);
-    const chckGrp2 = checkGrp(inputGrp2);
+    const checkGroup1 = checkGroup(inputGrp1);
+    const checkGroup2 = checkGroup(inputGrp2);
 
-    return (chckGrp1 && chckGrp2) ? true : false;
+    return (checkGroup1 && checkGroup2) ? true : false;
   };
 
   const getResult = () => {
@@ -80,21 +86,21 @@ const getGameScreen1 = (gameStatus, scores, callback) => {
   };
 
   const addHandlers = () => {
-    scrEl.querySelector(`.game__content`).addEventListener(`change`, () => {
+    screenElement.querySelector(`.game__content`).addEventListener(`change`, () => {
       if (checkResult()) {
         callback(getResult());
       }
     });
   };
 
-  const scrEl = utils.createDom(GAME_SCREEN, header(gameStatus));
+  const screenElement = utils.createDom(GAME_SCREEN, header(gameStatus));
 
-  const inputGrp1 = scrEl.querySelectorAll(`input[name="question1"]`);
-  const inputGrp2 = scrEl.querySelectorAll(`input[name="question2"]`);
+  const inputGrp1 = screenElement.querySelectorAll(`input[name="question1"]`);
+  const inputGrp2 = screenElement.querySelectorAll(`input[name="question2"]`);
 
   addHandlers();
 
-  return scrEl;
+  return screenElement;
 };
 
 const getGameScreen2 = (gameStatus, scores, callback) => {
@@ -135,17 +141,17 @@ const getGameScreen2 = (gameStatus, scores, callback) => {
   };
 
   const addHandlers = () => {
-    scrEl.querySelector(`.game__content`).addEventListener(`change`, () => {
+    screenElement.querySelector(`.game__content`).addEventListener(`change`, () => {
       callback(getResult());
     });
   };
 
-  const scrEl = utils.createDom(GAME_SCREEN, header(gameStatus));
-  const inputGrp1 = scrEl.querySelectorAll(`input[name="question1"]`);
+  const screenElement = utils.createDom(GAME_SCREEN, header(gameStatus));
+  const inputGrp1 = screenElement.querySelectorAll(`input[name="question1"]`);
 
   addHandlers();
 
-  return scrEl;
+  return screenElement;
 };
 
 const getGameScreen3 = (gameStatus, scores, callback) => {
@@ -170,37 +176,37 @@ const getGameScreen3 = (gameStatus, scores, callback) => {
     ${footer}`;
 
   const getResult = (evt) => {
-    const el = (evt.target.dataset.name) ? evt.target : evt.target.parentNode;
+    const element = (evt.target.dataset.name) ? evt.target : evt.target.parentNode;
 
     return {
-      img1: el.dataset.name
+      img1: element.dataset.name
     };
   };
 
   const addHandlers = () => {
-    scrEl.querySelector(`.game__content`).addEventListener(`click`, (evt) => {
+    screenElement.querySelector(`.game__content`).addEventListener(`click`, (evt) => {
       callback(getResult(evt));
     });
   };
 
-  const scrEl = utils.createDom(GAME_SCREEN, header(gameStatus));
+  const screenElement = utils.createDom(GAME_SCREEN, header(gameStatus));
 
   addHandlers();
 
-  return scrEl;
+  return screenElement;
 };
 
 const getGameScreeen = (gameStatus, scores, callback) => {
   let gameScreen;
 
   switch (gameStatus.currLevel.screen) {
-    case `screen-game-1`:
+    case GameScreens.SCREEN1:
       gameScreen = getGameScreen1(gameStatus, scores, callback);
       break;
-    case `screen-game-2`:
+    case GameScreens.SCREEN2:
       gameScreen = getGameScreen2(gameStatus, scores, callback);
       break;
-    case `screen-game-3`:
+    case GameScreens.SCREEN3:
       gameScreen = getGameScreen3(gameStatus, scores, callback);
       break;
   }

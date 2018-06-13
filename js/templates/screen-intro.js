@@ -11,13 +11,13 @@ const SCREEN = `
   ${footer}`;
 
 const screen = (callback) => {
-  const scrEl = utils.createDom(SCREEN);
+  const screenElement = utils.createDom(SCREEN);
 
-  scrEl.querySelector(`.intro__asterisk`).addEventListener(`click`, () => {
+  screenElement.querySelector(`.intro__asterisk`).addEventListener(`click`, () => {
     callback();
   });
 
-  return scrEl;
+  return screenElement;
 };
 
 export default screen;

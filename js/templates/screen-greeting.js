@@ -19,13 +19,13 @@ const SCREEN = `
 
 const screen = (callback) => {
 
-  const scrEl = utils.createDom(SCREEN);
+  const screenElement = utils.createDom(SCREEN);
 
-  scrEl.querySelector(`.greeting__continue`).addEventListener(`click`, () => {
+  screenElement.querySelector(`.greeting__continue`).addEventListener(`click`, () => {
     callback();
   });
 
-  return scrEl;
+  return screenElement;
 };
 
 export default screen;

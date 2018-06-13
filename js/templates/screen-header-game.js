@@ -2,12 +2,12 @@ import main from '../main.js';
 
 export default (gameStatus) => {
 
-  let curLives = gameStatus.lives;
+  let currentLives = gameStatus.lives;
   const lives = [];
 
   for (let i = 0; i < 3; i++) {
-    lives.unshift((curLives > 0) ? `img/heart__full.svg` : `img/heart__empty.svg`);
-    curLives--;
+    lives.unshift((currentLives > 0) ? `img/heart__full.svg` : `img/heart__empty.svg`);
+    currentLives--;
   }
 
   const header = document.createElement(`header`);

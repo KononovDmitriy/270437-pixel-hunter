@@ -1,11 +1,16 @@
+const ErrorMessages = {
+  NOT_ARRAY: `playerAnswers expected array`,
+  NOT_NUMBER: `playerLife expected number`
+};
+
 const scoring = (playerAnswers, playerLife) => {
 
   if (!Array.isArray(playerAnswers)) {
-    throw new Error(`playerAnswers expected array`);
+    throw new Error(ErrorMessages.NOT_ARRAY);
   }
 
   if (typeof playerLife !== `number` || !isFinite(playerLife)) {
-    throw new Error(`playerLife expected number`);
+    throw new Error(ErrorMessages.NOT_NUMBER);
   }
 
   if (playerAnswers.length < 10) {
@@ -17,16 +22,16 @@ const scoring = (playerAnswers, playerLife) => {
     if (curEl.answer) {
       pointsSum.answer.positiveAnswCnt++;
       pointsSum.answer.answSum += 100;
-    }
 
-    if (curEl.time < 10) {
-      pointsSum.fast.fastCnt++;
-      pointsSum.fast.fastSum += 50;
-    }
+      if (curEl.time < 10) {
+        pointsSum.fast.fastCnt++;
+        pointsSum.fast.fastSum += 50;
+      }
 
-    if (curEl.time > 20) {
-      pointsSum.slow.slowCnt++;
-      pointsSum.slow.slowSum -= 50;
+      if (curEl.time > 20) {
+        pointsSum.slow.slowCnt++;
+        pointsSum.slow.slowSum -= 50;
+      }
     }
 
     return pointsSum;

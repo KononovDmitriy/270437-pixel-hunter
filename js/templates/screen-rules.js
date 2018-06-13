@@ -22,15 +22,15 @@ const screen = (callback) => {
     </div>
     ${footer}`;
 
-  const addHandlers = (scrEl) => {
-    const continueBtn = scrEl.querySelector(`.rules__button`);
+  const addHandlers = (screenElement) => {
+    const continueBtn = screenElement.querySelector(`.rules__button`);
 
-    scrEl.querySelector(`.rules__form`).addEventListener(`submit`, (evt) => {
+    screenElement.querySelector(`.rules__form`).addEventListener(`submit`, (evt) => {
       evt.preventDefault();
       callback(evt.target[0].value);
     });
 
-    scrEl.querySelector(`.rules__input`).addEventListener(`input`, (evt) => {
+    screenElement.querySelector(`.rules__input`).addEventListener(`input`, (evt) => {
       if (evt.target.value === ``) {
         continueBtn.disabled = true;
         return false;
@@ -41,11 +41,11 @@ const screen = (callback) => {
     });
   };
 
-  const scrEl = utils.createDom(SCREEN, header);
+  const screenElement = utils.createDom(SCREEN, header);
 
-  addHandlers(scrEl, callback);
+  addHandlers(screenElement, callback);
 
-  return scrEl;
+  return screenElement;
 };
 
 export default screen;

@@ -72,7 +72,7 @@ const TEST_QUERIES = {
       {answer: true, time: 18}, {answer: true, time: 21}, {answer: true, time: 18},
       {answer: false, time: 21}],
     lives: 2,
-    return: 800
+    return: 850
   },
 
   returnsTest7: {
@@ -82,7 +82,7 @@ const TEST_QUERIES = {
       {answer: true, time: 3}, {answer: true, time: 21}, {answer: true, time: 18},
       {answer: false, time: 21}, {answer: false, time: 2}, {answer: true, time: 21}],
     lives: 1,
-    return: 1050
+    return: 1000
   },
 
 
