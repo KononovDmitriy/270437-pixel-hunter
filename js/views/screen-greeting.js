@@ -1,31 +1,46 @@
-import utils from '../utils.js';
+// import utils from '../utils.js';
 import footer from './screen-footer.js';
+import AbstractView from './abstract-view.js';
 
-const SCREEN = `
-  <div class="greeting central--blur">
-    <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
-    <h1 class="greeting__asterisk">*</h1>
-    <div class="greeting__challenge">
-      <h3>Лучшие художники-фотореалисты бросают&nbsp;тебе&nbsp;вызов!</h3>
-      <p>Правила игры просты.<br>
-        Нужно отличить рисунок&nbsp;от фотографии и сделать выбор.<br>
-        Задача кажется тривиальной, но не думай, что все так просто.<br>
-        Фотореализм обманчив и коварен.<br>
-        Помни, главное — смотреть очень внимательно.</p>
-    </div>
-    <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
-  </div>
-  ${footer}`;
+class ScreenGreeting extends AbstractView {
+  constructor() {
+    super();
+  }
 
-const screen = (callback) => {
+  get template() {
+    return `
+      <div class="greeting central--blur">
+        <div class="greeting__logo"><img src="img/logo_big.png" width="201" height="89" alt="Pixel Hunter"></div>
+        <h1 class="greeting__asterisk">*</h1>
+        <div class="greeting__challenge">
+          <h3>Лучшие художники-фотореалисты бросают&nbsp;тебе&nbsp;вызов!</h3>
+          <p>Правила игры просты.<br>
+            Нужно отличить рисунок&nbsp;от фотографии и сделать выбор.<br>
+            Задача кажется тривиальной, но не думай, что все так просто.<br>
+            Фотореализм обманчив и коварен.<br>
+            Помни, главное — смотреть очень внимательно.</p>
+        </div>
+        <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
+      </div>
+      ${footer}`;
+  }
 
-  const screenElement = utils.createDom(SCREEN);
+  bind(screenElement) {
+    screenElement.querySelector(`.greeting__continue`).addEventListener(
+        `click`, () => {
+          this.greetingCallback();
+        });
+  }
 
-  screenElement.querySelector(`.greeting__continue`).addEventListener(`click`, () => {
+  greetingCallback() {}
+}
+
+const screenGreeting = new ScreenGreeting();
+
+export default (callback) => {
+  screenGreeting.greetingCallback = () => {
     callback();
-  });
-
-  return screenElement;
+  };
+  const element = screenGreeting.element();
+  return element;
 };
-
-export default screen;

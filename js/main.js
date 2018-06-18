@@ -4,11 +4,11 @@ import gameStatus from './data/game-status-data.js';
 import utils from './utils.js';
 import scoring from './scoring.js';
 
-import introScreen from './templates/screen-intro.js';
-import greetScreen from './templates/screen-greeting.js';
-import rulesScreen from './templates/screen-rules.js';
-import gameScreen from './templates/screen-game.js';
-import statScreen from './templates/screen-stats.js';
+import introScreen from './views/screen-intro.js';
+import greetScreen from './views/screen-greeting.js';
+import rulesScreen from './views/screen-rules.js';
+import gameScreen from './views/screen-game.js';
+import statScreen from './views/screen-stats.js';
 import GameScreens from './game-screen-types.js';
 
 const initGame = () => {

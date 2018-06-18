@@ -1,23 +1,38 @@
-import utils from '../utils.js';
 import footer from './screen-footer.js';
+import AbstractView from './abstract-view.js';
 
-const SCREEN = `
-  <div id="main" class="central__content">
-    <div id="intro" class="intro">
-      <h1 class="intro__asterisk">*</h1>
-      <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
-    </div>
-  </div>
-  ${footer}`;
+class ScreenIntro extends AbstractView {
+  constructor() {
+    super();
+  }
 
-const screen = (callback) => {
-  const screenElement = utils.createDom(SCREEN);
+  get template() {
+    return `
+      <div id="main" class="central__content">
+        <div id="intro" class="intro">
+          <h1 class="intro__asterisk">*</h1>
+          <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
+        </div>
+      </div>
+      ${footer}`;
+  }
 
-  screenElement.querySelector(`.intro__asterisk`).addEventListener(`click`, () => {
+  bind(screenElement) {
+    screenElement.querySelector(`.intro__asterisk`).addEventListener(
+        `click`, () => {
+          this.introCallback();
+        });
+  }
+
+  introCallback() {}
+}
+
+const screenIntro = new ScreenIntro();
+
+export default (callback) => {
+  screenIntro.introCallback = () => {
     callback();
-  });
-
-  return screenElement;
+  };
+  const element = screenIntro.element();
+  return element;
 };
-
-export default screen;

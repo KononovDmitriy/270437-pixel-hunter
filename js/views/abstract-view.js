@@ -3,9 +3,14 @@ export default class {
     throw new Error(`Template is required`);
   }
 
-  render() {
+  render(header) {
     const element = document.createElement(`div`);
+
     element.innerHTML = this.template;
+
+    if (header) {
+      element.insertBefore(header, element.firstChild);
+    }
 
     return element;
   }
@@ -14,9 +19,9 @@ export default class {
     throw new Error(`bind is required`);
   }
 
-  element() {
+  element(header) {
     if (!this._element) {
-      this._element = this.render();
+      this._element = (header) ? this.render(header) : this.render();
       this.bind(this._element);
     }
 
