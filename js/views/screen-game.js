@@ -93,12 +93,24 @@ class ScreenGame1 extends AbstractView {
 
     screenElement.querySelector(`.game__content`).addEventListener(`change`, () => {
       if (this._checkResult(inputGrp1, inputGrp2)) {
-        this.screenGameCallback(this._getResult(inputGrp1, inputGrp1));
+        this.screenGameCallback(this._getResult(inputGrp1, inputGrp2));
       }
     });
   }
 
   screenGameCallback() {}
+}
+
+class ScreenGame2 extends AbstractView {
+  constructor(gameStatus, scores) {
+    super();
+    this._gameStatus = gameStatus;
+    this._scores = scores;
+  }
+
+  get template() {
+    return ``;
+  }
 }
 
 export default (gameStatus, scores, callback) => {
