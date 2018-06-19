@@ -20,8 +20,6 @@ const initGame = () => {
 };
 
 const checkScreenGame1 = (answer) => {
-  console.dir(answer);
-
   const result = (answer.img1 === gameStatus.currLevel.data.img1.answer &&
     answer.img2 === gameStatus.currLevel.data.img2.answer) ? true : false;
 

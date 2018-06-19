@@ -13,8 +13,7 @@ class ScreenIntro extends AbstractView {
           <h1 class="intro__asterisk">*</h1>
           <p class="intro__motto"><sup>*</sup> Это не фото. Это рисунок маслом нидерландского художника-фотореалиста Tjalf Sparnaay.</p>
         </div>
-      </div>
-      ${footer}`;
+      </div>`;
   }
 
   bind(screenElement) {
@@ -33,6 +32,6 @@ export default (callback) => {
   screenIntro.introCallback = () => {
     callback();
   };
-  const element = screenIntro.element();
+  const element = screenIntro.element(footer());
   return element;
 };

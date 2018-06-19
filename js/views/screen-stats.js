@@ -107,8 +107,7 @@ class ScreenStats extends AbstractView {
             <td colspan="5" class="result__total  result__total--final">950</td>
           </tr>
         </table>
-      </div>
-      ${footer}`;
+      </div>`;
   }
 
   bind() {}
@@ -116,5 +115,5 @@ class ScreenStats extends AbstractView {
 
 export default (result, answers) => {
   const screenStats = new ScreenStats(result, answers);
-  return screenStats.element(header);
+  return screenStats.element(footer(), header());
 };

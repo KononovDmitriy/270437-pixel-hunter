@@ -21,8 +21,7 @@ class ScreenGreeting extends AbstractView {
             Помни, главное — смотреть очень внимательно.</p>
         </div>
         <div class="greeting__continue"><span><img src="img/arrow_right.svg" width="64" height="64" alt="Next"></span></div>
-      </div>
-      ${footer}`;
+      </div>`;
   }
 
   bind(screenElement) {
@@ -41,6 +40,6 @@ export default (callback) => {
   screenGreeting.greetingCallback = () => {
     callback();
   };
-  const element = screenGreeting.element();
+  const element = screenGreeting.element(footer());
   return element;
 };

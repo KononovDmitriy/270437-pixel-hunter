@@ -25,8 +25,7 @@ class ScreenRules extends AbstractView {
           <input class="rules__input" type="text" placeholder="Ваше Имя">
           <button class="rules__button  continue" type="submit" disabled>Go!</button>
         </form>
-      </div>
-      ${footer}`;
+      </div>`;
   }
 
   bind(screenElement) {
@@ -59,6 +58,6 @@ export default (callback) => {
   screenRules.rulesCallback = () => {
     callback();
   };
-  const element = screenRules.element(header);
+  const element = screenRules.element(footer(), header());
   return element;
 };
