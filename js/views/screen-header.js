@@ -18,6 +18,7 @@ class ScreenHeader extends AbstractView {
 
   render() {
     const element = document.createElement(`header`);
+    element.classList.add(`header`);
     element.innerHTML = this.template;
 
     return element;
@@ -41,5 +42,4 @@ export default () => {
   };
 
   return screenHeader.element();
-
 };

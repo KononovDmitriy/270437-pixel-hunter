@@ -1,4 +1,3 @@
-// import utils from '../utils.js';
 import footer from './screen-footer.js';
 import AbstractView from './abstract-view.js';
 
