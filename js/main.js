@@ -4,11 +4,11 @@ import gameStatus from './data/game-status-data.js';
 import utils from './utils.js';
 import scoring from './scoring.js';
 
-import introScreen from './templates/screen-intro.js';
-import greetScreen from './templates/screen-greeting.js';
-import rulesScreen from './templates/screen-rules.js';
-import gameScreen from './templates/screen-game.js';
-import statScreen from './templates/screen-stats.js';
+import introScreen from './views/screen-intro.js';
+import greetScreen from './views/screen-greeting.js';
+import rulesScreen from './views/screen-rules.js';
+import gameScreen from './views/screen-game.js';
+import statScreen from './views/screen-stats.js';
 import GameScreens from './game-screen-types.js';
 
 const initGame = () => {
@@ -84,7 +84,8 @@ const gameCallback = (answer) => {
     gameStatus.lives--;
 
     if (gameStatus.lives < 0) {
-      utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives), gameStatus.scores));
+      utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives),
+          gameStatus.scores, utils.statisticBar(gameStatus.scores)));
       return;
     }
   }
@@ -93,9 +94,12 @@ const gameCallback = (answer) => {
   gameStatus.currLevel = levelData[gameStatus.currLevelNum];
 
   if (gameStatus.currLevelNum < levelData.length) {
-    utils.changeScreen(gameScreen(gameStatus, gameStatus.scores, gameCallback));
+    utils.changeScreen(gameScreen(gameStatus,
+        utils.statisticBar(gameStatus.scores), gameCallback));
+
   } else {
-    utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives), gameStatus.scores));
+    utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives),
+        gameStatus.scores, utils.statisticBar(gameStatus.scores)));
   }
 };
 
@@ -103,7 +107,8 @@ const rulesScrCallback = (name) => {
   gameStatus.playerName = name;
   gameStatus.currLevel = levelData[gameStatus.currLevelNum];
 
-  utils.changeScreen(gameScreen(gameStatus, gameStatus.scores, gameCallback));
+  utils.changeScreen(gameScreen(gameStatus,
+      utils.statisticBar(gameStatus.scores), gameCallback));
 };
 
 const greetScrCallback = () => {
