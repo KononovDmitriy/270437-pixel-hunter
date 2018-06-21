@@ -1,13 +1,10 @@
-import stats from './stats.js';
 import footer from './screen-footer.js';
 import header from './screen-header.js';
 import AbstractView from './abstract-view.js';
 
 class ScreenStats extends AbstractView {
-  constructor(result, answers) {
+  constructor() {
     super();
-    this._result = result;
-    this._answers = answers;
   }
 
   get template() {
@@ -18,7 +15,7 @@ class ScreenStats extends AbstractView {
           <tr>
             <td class="result__number">1.</td>
             <td colspan="2">
-              ${stats(this._answers)}
+              ${this._statisticBar}
             </td>
               ${(this._result !== -1) ? `
                 <td class="result__points">×&nbsp;100</td>
@@ -111,9 +108,20 @@ class ScreenStats extends AbstractView {
   }
 
   bind() {}
+
+  element(result, answers, statisticBar, footerElement, headerElement) {
+    this._result = result;
+    this._answers = answers;
+    this._statisticBar = statisticBar;
+    this._element = this.render(footerElement, headerElement);
+    this.bind(this._element);
+
+    return this._element;
+  }
 }
 
-export default (result, answers) => {
-  const screenStats = new ScreenStats(result, answers);
-  return screenStats.element(footer(), header());
+const screenStats = new ScreenStats();
+
+export default (result, answers, statisticBar) => {
+  return screenStats.element(result, answers, statisticBar, footer(), header());
 };

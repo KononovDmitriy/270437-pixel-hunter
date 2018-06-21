@@ -84,7 +84,8 @@ const gameCallback = (answer) => {
     gameStatus.lives--;
 
     if (gameStatus.lives < 0) {
-      utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives), gameStatus.scores));
+      utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives),
+          gameStatus.scores, utils.statisticBar(gameStatus.scores)));
       return;
     }
   }
@@ -93,9 +94,12 @@ const gameCallback = (answer) => {
   gameStatus.currLevel = levelData[gameStatus.currLevelNum];
 
   if (gameStatus.currLevelNum < levelData.length) {
-    utils.changeScreen(gameScreen(gameStatus, gameStatus.scores, gameCallback));
+    utils.changeScreen(gameScreen(gameStatus,
+        utils.statisticBar(gameStatus.scores), gameCallback));
+
   } else {
-    utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives), gameStatus.scores));
+    utils.changeScreen(statScreen(scoring(gameStatus.scores, gameStatus.lives),
+        gameStatus.scores, utils.statisticBar(gameStatus.scores)));
   }
 };
 
@@ -103,7 +107,8 @@ const rulesScrCallback = (name) => {
   gameStatus.playerName = name;
   gameStatus.currLevel = levelData[gameStatus.currLevelNum];
 
-  utils.changeScreen(gameScreen(gameStatus, gameStatus.scores, gameCallback));
+  utils.changeScreen(gameScreen(gameStatus,
+      utils.statisticBar(gameStatus.scores), gameCallback));
 };
 
 const greetScrCallback = () => {

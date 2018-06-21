@@ -2,9 +2,9 @@ import main from '../main.js';
 import AbstractView from './abstract-view.js';
 
 class ScreenHeaderGame extends AbstractView {
-  constructor(gameStatus) {
+  constructor() {
     super();
-    this._gameStatus = gameStatus;
+
   }
 
   get template() {
@@ -17,9 +17,9 @@ class ScreenHeaderGame extends AbstractView {
       </div>
       <h1 class="game__timer">NN</h1>
       <div class="game__lives">
-        <img src="${this.lives[0]}" class="game__heart" alt="Life" width="32" height="32">
-        <img src="${this.lives[1]}" class="game__heart" alt="Life" width="32" height="32">
-        <img src="${this.lives[2]}" class="game__heart" alt="Life" width="32" height="32">
+  ${this._lives.map((currentValue) => {
+    return currentValue;
+  }).join(``)}
       </div>`;
   }
 
@@ -39,30 +39,29 @@ class ScreenHeaderGame extends AbstractView {
 
   screenHeaderCallback() {}
 
-  element(footer, header) {
-    if (!this._element) {
-      let currentLives = this._gameStatus.lives;
-      this.lives = [];
+  element(playerLives) {
+    this._lives = [];
 
-      for (let i = 0; i < 3; i++) {
-        this.lives.unshift((currentLives > 0) ? `img/heart__full.svg` : `img/heart__empty.svg`);
-        currentLives--;
-      }
-
-      this._element = this.render(footer, header);
-      this.bind(this._element);
+    for (let i = 0; i < 3; i++) {
+      this._lives.unshift((playerLives > 0) ?
+        `<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">` :
+        `<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`);
+      playerLives--;
     }
 
-    return this._element;
+    const element = this.render();
+    this.bind(element);
+
+    return element;
   }
 }
 
-export default (gameStatus) => {
-  const screenHeaderGame = new ScreenHeaderGame(gameStatus);
+const screenHeaderGame = new ScreenHeaderGame();
 
+export default (playerLives) => {
   screenHeaderGame.screenHeaderCallback = () => {
     main.changeGreetengScreen();
   };
 
-  return screenHeaderGame.element();
+  return screenHeaderGame.element(playerLives);
 };
