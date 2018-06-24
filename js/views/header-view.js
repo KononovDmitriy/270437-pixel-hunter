@@ -1,7 +1,6 @@
-import main from '../main.js';
 import AbstractView from './abstract-view.js';
 
-class ScreenHeader extends AbstractView {
+export default class ScreenHeader extends AbstractView {
   constructor() {
     super();
   }
@@ -33,13 +32,3 @@ class ScreenHeader extends AbstractView {
   screenHeaderCallback() {}
 
 }
-
-export default () => {
-  const screenHeader = new ScreenHeader();
-
-  screenHeader.screenHeaderCallback = () => {
-    main.changeGreetengScreen();
-  };
-
-  return screenHeader.element();
-};

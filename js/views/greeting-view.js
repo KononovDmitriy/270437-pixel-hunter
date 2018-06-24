@@ -1,7 +1,6 @@
-import footer from './screen-footer.js';
 import AbstractView from './abstract-view.js';
 
-class ScreenGreeting extends AbstractView {
+export default class ScreenGreeting extends AbstractView {
   constructor() {
     super();
   }
@@ -32,13 +31,3 @@ class ScreenGreeting extends AbstractView {
 
   greetingCallback() {}
 }
-
-const screenGreeting = new ScreenGreeting();
-
-export default (callback) => {
-  screenGreeting.greetingCallback = () => {
-    callback();
-  };
-  const element = screenGreeting.element(footer());
-  return element;
-};

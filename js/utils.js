@@ -1,9 +1,15 @@
 const mainNode = document.querySelector(`.central`);
 
 export default {
-  changeScreen: (screen) => {
+  changeScreen: (mainScreen, footer, header) => {
     mainNode.innerHTML = ``;
-    mainNode.appendChild(screen);
+
+    if (header) {
+      mainNode.appendChild(header);
+    }
+
+    mainNode.appendChild(mainScreen);
+    mainNode.appendChild(footer);
   },
 
   statisticBar: (scores) => {

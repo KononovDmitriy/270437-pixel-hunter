@@ -1,9 +1,6 @@
-
-import footer from './screen-footer.js';
-import header from './screen-header.js';
 import AbstractView from './abstract-view.js';
 
-class ScreenRules extends AbstractView {
+export default class RulesView extends AbstractView {
   constructor() {
     super();
   }
@@ -51,13 +48,3 @@ class ScreenRules extends AbstractView {
     throw new Error(`rulesCallback is required`);
   }
 }
-
-const screenRules = new ScreenRules();
-
-export default (callback) => {
-  screenRules.rulesCallback = () => {
-    callback();
-  };
-  const element = screenRules.element(footer(), header());
-  return element;
-};
