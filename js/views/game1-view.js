@@ -95,7 +95,5 @@ export default class Game1View extends AbstractView {
       });
   }
 
-  game1Callback() {
-    console.log(`1111`);
-  }
+  game1Callback() {}
 }

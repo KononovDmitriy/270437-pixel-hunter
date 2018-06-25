@@ -14,7 +14,11 @@ export default class HeaderGamePresenter {
 
     this._gameModel.timerCallback = (time) => {
       if (!time) {
-        console.log('GameOver!!');
+        if (this._gameModel.nextLevel(false)) {
+          application.showGame();
+        } else {
+          application.showStatistics();
+        }
       }
 
       this._headerGameView.timer = time;

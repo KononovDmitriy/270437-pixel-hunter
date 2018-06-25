@@ -1,16 +1,16 @@
-import Game1View from './../views/game1-view.js';
+import Game3View from './../views/game3-view.js';
 import application from './../application.js';
 
 import utils from './../utils.js';
 
-export default class Game1Presenter {
+export default class Game3Presenter {
   constructor(gameModel) {
     this._gameModel = gameModel;
 
-    this._game1View = new Game1View(gameModel.gameStatus,
+    this._game3View = new Game3View(gameModel.gameStatus,
         utils.statisticBar(gameModel.gameStatus.scores));
 
-    this._game1View.game1Callback = (answer) => {
+    this._game3View.game3Callback = (answer) => {
       this._gameModel.stopTimer();
 
       if (!this._gameModel.nextLevel(answer)) {
@@ -24,6 +24,6 @@ export default class Game1Presenter {
   }
 
   start() {
-    return this._game1View.element();
+    return this._game3View.element();
   }
 }

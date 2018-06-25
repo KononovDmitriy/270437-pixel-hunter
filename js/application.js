@@ -5,32 +5,39 @@ import header from './presenters/header-presenter.js';
 import HeaderGame from './presenters/header-game-presenter.js';
 import footer from './presenters/footer-presenter.js';
 
-import IntroScreen from './presenters/intro-screen-presenter.js';
-import GreetingScreen from './presenters/greeting-screen-presenter.js';
-import RulesScreen from './presenters/rules-screen-presenter.js';
+import IntroPresenter from './presenters/intro-screen-presenter.js';
+import GreetingPresenter from './presenters/greeting-screen-presenter.js';
+import RulesPresenter from './presenters/rules-screen-presenter.js';
 import Game1Presenter from './presenters/game1-screen-presenter.js';
+import Game2Presenter from './presenters/game2-screen-presenter.js';
+import Game3Presenter from './presenters/game3-screen-presenter.js';
+import StaristicsPresenter from './presenters/statistics-screen-presenter.js';
 
 import utils from './utils.js';
 
 const gameModel = new GameModel();
 
 class Application {
+  initGame() {
+    gameModel.initGame();
+  }
+
   showIntro() {
-    const introScreen = new IntroScreen();
-    utils.changeScreen(introScreen.element, footer());
+    const introPresenter = new IntroPresenter();
+    utils.changeScreen(introPresenter.element, footer());
   }
 
   showGreeting() {
-    const greetingScreen = new GreetingScreen();
-    utils.changeScreen(greetingScreen.element, footer());
+    const greetingPresenter = new GreetingPresenter();
+    utils.changeScreen(greetingPresenter.element, footer());
   }
 
   showRules() {
-    const rulesScreen = new RulesScreen();
-    utils.changeScreen(rulesScreen.element, footer(), header());
+    const rulesPresenter = new RulesPresenter();
+    utils.changeScreen(rulesPresenter.element, footer(), header());
   }
 
-  showGame(level) {
+  showGame() {
     const headerGamePresenter = new HeaderGame(gameModel);
 
     let gamePresenter;
@@ -39,9 +46,20 @@ class Application {
       case GameScreens.SCREEN1:
         gamePresenter = new Game1Presenter(gameModel);
         break;
+      case GameScreens.SCREEN2:
+        gamePresenter = new Game2Presenter(gameModel);
+        break;
+      case GameScreens.SCREEN3:
+        gamePresenter = new Game3Presenter(gameModel);
+        break;
     }
 
     utils.changeScreen(gamePresenter.start(), footer(), headerGamePresenter.start());
+  }
+
+  showStatistics() {
+    const rulesPresenter = new StaristicsPresenter(gameModel);
+    utils.changeScreen(rulesPresenter.start, footer(), header());
   }
 }
 

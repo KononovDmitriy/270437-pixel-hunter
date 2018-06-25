@@ -1,5 +1,5 @@
 import GameScreens from '../game-screen-types.js';
-import application from './../application.js';
+// import application from './../application.js';
 
 export default class GameModel {
   constructor() {
@@ -158,6 +158,7 @@ export default class GameModel {
 
     this._timer = 30;
     this._intervalId = ``;
+
     this.timerCallback = () => {};
 
     this._checkScreenGame1 = (answer) => {
@@ -165,6 +166,16 @@ export default class GameModel {
       answer.img2 === this._gameStatus.currLevel.data.img2.answer) ? true : false;
 
       return result;
+    };
+
+    this._checkScreenGame2 = (answer) => {
+      return (answer.img1 === this._gameStatus.currLevel.data.img1.answer)
+        ? true : false;
+    };
+
+    this._checkScreenGame3 = (answer) => {
+      return (answer.img1 === this._gameStatus.currLevel.data.answer)
+        ? true : false;
     };
 
     this._checkresult = (answer) => {
@@ -185,13 +196,51 @@ export default class GameModel {
       return result;
     };
 
+    this._pushAnswer = (answer) => {
+      const result = (answer) ? this._checkresult(answer) : false;
+
+      if (!result) {
+        this._gameStatus.lives--;
+
+        if (this._gameStatus.lives < 0) {
+          return false;
+        }
+      }
+
+      this._gameStatus.scores.push(
+          {
+            answer: result,
+            time: this._timer
+          }
+      );
+
+      return true;
+    };
   }
 
   get gameStatus() {
     return this._gameStatus;
   }
 
-  nextLevel() {
+  set playerName(name) {
+    this._gameStatus.playerName = name;
+  }
+
+  initGame() {
+    this._gameStatus = {
+      playerName: ``,
+      lives: 3,
+      currLevel: this._LevelData[0],
+      currLevelNum: 0,
+      scores: []
+    };
+  }
+
+  nextLevel(answer) {
+    if (!this._pushAnswer(answer)) {
+      return false;
+    }
+
     let level = false;
 
     if (this._gameStatus.currLevelNum < this._LevelData.length - 1) {
@@ -201,34 +250,7 @@ export default class GameModel {
       level = true;
     }
 
-    application.showGame(level);
-  }
-
-  set playerName(name) {
-    this._gameStatus.playerName = name;
-  }
-
-  pushAnswer(answer) {
-    const result = this._checkresult(answer);
-
-    if (!result) {
-      this._gameStatus.lives--;
-
-      if (this._gameStatus.lives < 0) {
-        return false;
-      }
-    }
-
-    this._gameStatus.scores.push(
-        {
-          answer: result,
-          time: this._timer
-        }
-    );
-
-    console.dir(this._gameStatus.scores);
-
-    return true;
+    return level;
   }
 
   startTimer() {
