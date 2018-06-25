@@ -5,7 +5,7 @@ export default class RulesPresenter {
   constructor() {
     this._view = new RulesView();
     this._view.rulesCallback = () => {
-      application.showGame1();
+      application.showGame();
     };
   }
 

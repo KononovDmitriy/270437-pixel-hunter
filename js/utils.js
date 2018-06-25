@@ -21,6 +21,11 @@ export default {
       SLOW: `slow`
     };
 
+    const TimeIntervals = {
+      FAST: 20,
+      SLOW: 10
+    };
+
     const getUlTemplate = (list) => {
       return `<ul class="stats">${list}</ul>`;
     };
@@ -34,10 +39,21 @@ export default {
     for (let i = 0; i < 10; i++) {
       if (scores[i] !== undefined) {
         if (scores[i].answer) {
-          currentClass = (scores[i].times < 10) ? StatsPictures.FAST :
-            StatsPictures.CORRECT;
-          currentClass = (scores[i].times > 20) ? StatsPictures.SLOW :
-            StatsPictures.CORRECT;
+
+          let time = scores[i].time;
+
+          if (time > TimeIntervals.FAST) {
+            currentClass = StatsPictures.FAST;
+          }
+
+          if (time < TimeIntervals.SLOW) {
+            currentClass = StatsPictures.SLOW;
+          }
+
+          if (time >= TimeIntervals.SLOW && time <= TimeIntervals.FAST) {
+            currentClass = StatsPictures.CORRECT;
+          }
+
           classes.push(getLiTemplate(currentClass));
         } else {
           classes.push(getLiTemplate(StatsPictures.WRONG));

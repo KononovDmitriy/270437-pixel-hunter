@@ -1,11 +1,10 @@
-import AbstractScreenGame from './abstract-screen-game.js';
+import AbstractView from './abstract-view.js';
 
-import header from './screen-header-game.js';
-import footer from './screen-footer.js';
-
-class ScreenGame1 extends AbstractScreenGame {
-  constructor() {
+export default class Game1View extends AbstractView {
+  constructor(gameStatus, statisticsBar) {
     super();
+    this._gameStatus = gameStatus;
+    this._statisticsBar = statisticsBar;
   }
 
   get template() {
@@ -15,6 +14,7 @@ class ScreenGame1 extends AbstractScreenGame {
         <form class="game__content">
           <div class="game__option">
             <img src="${this._gameStatus.currLevel.data.img1.url}" alt="Option 1" width="468" height="458">
+            }
             <label class="game__answer game__answer--photo">
               <input name="question1" type="radio" value="photo">
               <span>Фото</span>
@@ -90,19 +90,12 @@ class ScreenGame1 extends AbstractScreenGame {
     screenElement.querySelector(`.game__content`).
       addEventListener(`change`, () => {
         if (this._checkResult(inputGrp1, inputGrp2)) {
-          this.screenGameCallback(this._getResult(inputGrp1, inputGrp2));
+          this.game1Callback(this._getResult(inputGrp1, inputGrp2));
         }
       });
   }
 
-  screenGameCallback() {}
+  game1Callback() {
+    console.log(`1111`);
+  }
 }
-
-const screenGame1 = new ScreenGame1();
-
-export default (gameStatus, statisticsBar, callback) => {
-  screenGame1.screenGameCallback = callback;
-
-  return screenGame1.element(gameStatus, statisticsBar, footer(),
-      header(gameStatus.lives));
-};

@@ -1,10 +1,10 @@
-import main from '../main.js';
 import AbstractView from './abstract-view.js';
 
-class ScreenHeaderGame extends AbstractView {
-  constructor() {
+export default class HeaderGameView extends AbstractView {
+  constructor(lives) {
     super();
-
+    this._lives = lives;
+    this._timer = ``;
   }
 
   get template() {
@@ -15,12 +15,22 @@ class ScreenHeaderGame extends AbstractView {
           <img src="img/logo_small.svg" width="101" height="44">
         </button>
       </div>
-      <h1 class="game__timer">NN</h1>
+      <h1 class="game__timer">30</h1>
       <div class="game__lives">
-  ${this._lives.map((currentValue) => {
+  ${this._livesArr.map((currentValue) => {
     return currentValue;
   }).join(``)}
       </div>`;
+  }
+
+  set timer(time) {
+    this._timer.innerHTML = (time) ? time : 0;
+
+    if (time <= 5 && time > 0) {
+      setTimeout(() => {
+        this._timer.innerHTML = ``;
+      }, 500);
+    }
   }
 
   render() {
@@ -33,35 +43,27 @@ class ScreenHeaderGame extends AbstractView {
 
   bind(screenElement) {
     screenElement.querySelector(`button`).addEventListener(`click`, () => {
-      this.screenHeaderCallback();
+      this.headerGameCallback();
     });
   }
 
-  screenHeaderCallback() {}
+  headerGameCallback() {}
 
-  element(playerLives) {
-    this._lives = [];
+  element() {
+    this._livesArr = [];
 
     for (let i = 0; i < 3; i++) {
-      this._lives.unshift((playerLives > 0) ?
+      this._livesArr.unshift((this._lives > 0) ?
         `<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">` :
         `<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`);
-      playerLives--;
+      this._lives--;
     }
 
     const element = this.render();
     this.bind(element);
 
+    this._timer = element.querySelector(`.game__timer`);
+
     return element;
   }
 }
-
-const screenHeaderGame = new ScreenHeaderGame();
-
-export default (playerLives) => {
-  screenHeaderGame.screenHeaderCallback = () => {
-    main.changeGreetengScreen();
-  };
-
-  return screenHeaderGame.element(playerLives);
-};

@@ -1,4 +1,5 @@
 import GameScreens from '../game-screen-types.js';
+import application from './../application.js';
 
 export default class GameModel {
   constructor() {
@@ -149,29 +150,104 @@ export default class GameModel {
 
     this._gameStatus = {
       playerName: ``,
-      lives: 0,
+      lives: 3,
       currLevel: this._LevelData[0],
       currLevelNum: 0,
       scores: []
     };
+
+    this._timer = 30;
+    this._intervalId = ``;
+    this.timerCallback = () => {};
+
+    this._checkScreenGame1 = (answer) => {
+      const result = (answer.img1 === this._gameStatus.currLevel.data.img1.answer &&
+      answer.img2 === this._gameStatus.currLevel.data.img2.answer) ? true : false;
+
+      return result;
+    };
+
+    this._checkresult = (answer) => {
+      let result;
+
+      switch (this._gameStatus.currLevel.screen) {
+        case GameScreens.SCREEN1:
+          result = this._checkScreenGame1(answer);
+          break;
+        case GameScreens.SCREEN2:
+          result = this._checkScreenGame2(answer);
+          break;
+        case GameScreens.SCREEN3:
+          result = this._checkScreenGame3(answer);
+          break;
+      }
+
+      return result;
+    };
+
   }
 
-  get getGameModel() {
+  get gameStatus() {
     return this._gameStatus;
   }
 
-  get nextLevel() {
-    if (this._gameStatus.currLevelNum < this.LevelData.lenght - 1) {
+  nextLevel() {
+    let level = false;
+
+    if (this._gameStatus.currLevelNum < this._LevelData.length - 1) {
       this._gameStatus.currLevelNum++;
       this._gameStatus.currLevel = this._LevelData[this._gameStatus.currLevelNum];
 
-      return this._gameStatus;
+      level = true;
     }
 
-    return false;
+    application.showGame(level);
   }
 
   set playerName(name) {
     this._gameStatus.playerName = name;
+  }
+
+  pushAnswer(answer) {
+    const result = this._checkresult(answer);
+
+    if (!result) {
+      this._gameStatus.lives--;
+
+      if (this._gameStatus.lives < 0) {
+        return false;
+      }
+    }
+
+    this._gameStatus.scores.push(
+        {
+          answer: result,
+          time: this._timer
+        }
+    );
+
+    console.dir(this._gameStatus.scores);
+
+    return true;
+  }
+
+  startTimer() {
+    this._timer = 30;
+
+    this._intervalId = setInterval(() => {
+      this._timer--;
+
+      if (this._timer === 0) {
+        clearInterval(this._intervalId);
+        this.timerCallback(false);
+      } else {
+        this.timerCallback(this._timer);
+      }
+
+    }, 1000);
+  }
+
+  stopTimer() {
+    clearInterval(this._intervalId);
   }
 }
