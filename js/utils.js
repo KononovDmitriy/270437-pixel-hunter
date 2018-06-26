@@ -1,4 +1,4 @@
-import Enums from './enums.js';
+import Times from './enums/times-enum.js';
 const mainNode = document.querySelector(`.central`);
 
 export default {
@@ -38,15 +38,15 @@ export default {
 
           let time = scores[i].time;
 
-          if (time > Enums.Times.FAST_ANSWER) {
+          if (time > Times.FAST_ANSWER) {
             currentClass = StatsPictures.FAST;
           }
 
-          if (time < Enums.Times.SLOW_ANSWER) {
+          if (time < Times.SLOW_ANSWER) {
             currentClass = StatsPictures.SLOW;
           }
 
-          if (time >= Enums.Times.SLOW_ANSWER && time <= Enums.Times.FAST_ANSWER) {
+          if (time >= Times.SLOW_ANSWER && time <= Times.FAST_ANSWER) {
             currentClass = StatsPictures.CORRECT;
           }
 
@@ -95,12 +95,12 @@ export default {
         pointsSum.answer.positiveAnswCnt++;
         pointsSum.answer.answSum += Scores.ANSWER;
 
-        if (curEl.time > Enums.Times.FAST_ANSWER) {
+        if (curEl.time > Times.FAST_ANSWER) {
           pointsSum.fast.fastCnt++;
           pointsSum.fast.fastSum += Scores.FAST_ANSWER;
         }
 
-        if (curEl.time < Enums.Times.SLOW_ANSWER) {
+        if (curEl.time < Times.SLOW_ANSWER) {
           pointsSum.slow.slowCnt++;
           pointsSum.slow.slowSum -= Scores.SLOW_ANSWER;
         }

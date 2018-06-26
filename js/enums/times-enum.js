@@ -1,0 +1,6 @@
+export default {
+  START_TIME: 30,
+  INTERVAL: 1000,
+  FAST_ANSWER: 20,
+  SLOW_ANSWER: 10
+};

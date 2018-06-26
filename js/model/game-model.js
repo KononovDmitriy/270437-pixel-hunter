@@ -1,161 +1,21 @@
-import Enums from '../enums.js';
+import Times from './../enums/times-enum.js';
+import GameScreens from './../enums/game-screens-enum.js';
+import LevelsData from './../data/levels-data.js';
 
 export default class GameModel {
   constructor() {
-    this._Answers = {
-      PHOTO: `photo`,
-      PAINT: `paint`,
-      IMG1: `img1`,
-      IMG2: `img2`,
-      IMG3: `img3`,
-    };
-
-    this._Pictures = {
-      PAINTINGS: [
-        // People
-        `https://k42.kn3.net/CF42609C8.jpg`,
-
-        // Animals
-        `https://k42.kn3.net/D2F0370D6.jpg`,
-
-        // Nature
-        `https://k32.kn3.net/5C7060EC5.jpg`
-      ],
-      PHOTOS: [
-        // People
-        `http://i.imgur.com/1KegWPz.jpg`,
-
-        // Animals
-        `https://i.imgur.com/DiHM5Zb.jpg`,
-
-        // Nature
-        `http://i.imgur.com/DKR1HtB.jpg`
-      ]
-    };
-
-    this._Titles = {
-      TITLE1: `Найдите рисунок среди изображений`,
-      TITLE2: `Найдите фото среди изображений`,
-    };
-
-    this._LevelData = [
-      {
-        screen: Enums.GameScreens.SCREEN1,
-        data: {
-          img1: {
-            url: this._Pictures.PHOTOS[0],
-            answer: this._Answers.PHOTO
-          },
-          img2: {
-            url: this._Pictures.PAINTINGS[2],
-            answer: this._Answers.PAINT
-          }
-        }
-      },
-      {
-        screen: Enums.GameScreens.SCREEN1,
-        data: {
-          img1: {
-            url: this._Pictures.PAINTINGS[0],
-            answer: this._Answers.PAINT
-          },
-          img2: {
-            url: this._Pictures.PHOTOS[2],
-            answer: this._Answers.PHOTO
-          }
-        }
-      },
-      {
-        screen: Enums.GameScreens.SCREEN1,
-        data: {
-          img1: {
-            url: this._Pictures.PHOTOS[1],
-            answer: this._Answers.PHOTO
-          },
-          img2: {
-            url: this._Pictures.PAINTINGS[1],
-            answer: this._Answers.PAINT
-          }
-        }
-      },
-      {
-        screen: Enums.GameScreens.SCREEN2,
-        data: {
-          img1: {
-            url: this._Pictures.PAINTINGS[2],
-            answer: this._Answers.PAINT
-          }
-        }
-      },
-      {
-        screen: Enums.GameScreens.SCREEN2,
-        data: {
-          img1: {
-            url: this._Pictures.PHOTOS[0],
-            answer: this._Answers.PHOTO
-          }
-        }
-      },
-      {
-        screen: Enums.GameScreens.SCREEN2,
-        data: {
-          img1: {
-            url: this._Pictures.PAINTINGS[1],
-            answer: this._Answers.PAINT
-          }
-        }
-      },
-      {
-        screen: Enums.GameScreens.SCREEN3,
-        data: {
-          title: this._Titles.TITLE1,
-          answer: this._Answers.IMG2,
-          img1: this._Pictures.PHOTOS[2],
-          img2: this._Pictures.PAINTINGS[2],
-          img3: this._Pictures.PHOTOS[0]
-        }
-      },
-      {
-        screen: Enums.GameScreens.SCREEN3,
-        data: {
-          title: this._Titles.TITLE2,
-          answer: this._Answers.IMG1,
-          img1: this._Pictures.PHOTOS[1],
-          img2: this._Pictures.PAINTINGS[2],
-          img3: this._Pictures.PAINTINGS[0]
-        }
-      },
-      {
-        screen: Enums.GameScreens.SCREEN3,
-        data: {
-          title: this._Titles.TITLE1,
-          answer: this._Answers.IMG2,
-          img1: this._Pictures.PHOTOS[2],
-          img2: this._Pictures.PAINTINGS[2],
-          img3: this._Pictures.PHOTOS[1]
-        }
-      },
-      {
-        screen: Enums.GameScreens.SCREEN3,
-        data: {
-          title: this._Titles.TITLE2,
-          answer: this._Answers.IMG3,
-          img1: this._Pictures.PAINTINGS[1],
-          img2: this._Pictures.PAINTINGS[2],
-          img3: this._Pictures.PHOTOS[2]
-        }
-      },
-    ];
+    this._NUMBER_LEVELS = 10;
+    this._LevelsData = LevelsData;
 
     this._gameStatus = {
       playerName: ``,
       lives: 3,
-      currLevel: this._LevelData[0],
+      currLevel: this._LevelsData[0],
       currLevelNum: 0,
       scores: []
     };
 
-    this._timer = 10;
+    this._timer = ``;
     this._intervalId = ``;
   }
 
@@ -168,58 +28,58 @@ export default class GameModel {
   }
 
   _checkScreenGame1(answer) {
-    const result = (answer.img1 === this._gameStatus.currLevel.data.img1.answer &&
-    answer.img2 === this._gameStatus.currLevel.data.img2.answer) ? true : false;
-
-    return result;
+    return answer.img1 === this._gameStatus.currLevel.data.img1.answer &&
+      answer.img2 === this._gameStatus.currLevel.data.img2.answer;
   }
 
   _checkScreenGame2(answer) {
-    return (answer.img1 === this._gameStatus.currLevel.data.img1.answer)
-      ? true : false;
+    return answer.img1 === this._gameStatus.currLevel.data.img1.answer;
   }
 
   _checkScreenGame3(answer) {
-    return (answer.img1 === this._gameStatus.currLevel.data.answer)
-      ? true : false;
+    return answer.img1 === this._gameStatus.currLevel.data.answer;
   }
 
   _checkresult(answer) {
     let result;
 
     switch (this._gameStatus.currLevel.screen) {
-      case Enums.GameScreens.SCREEN1:
+      case GameScreens.SCREEN1:
         result = this._checkScreenGame1(answer);
         break;
-      case Enums.GameScreens.SCREEN2:
+      case GameScreens.SCREEN2:
         result = this._checkScreenGame2(answer);
         break;
-      case Enums.GameScreens.SCREEN3:
+      case GameScreens.SCREEN3:
         result = this._checkScreenGame3(answer);
         break;
     }
     return result;
   }
 
-  _pushAnswer(answer) {
-    const result = (answer) ? this._checkresult(answer) : false;
-
+  pushAnswer(answer) {
     this._gameStatus.scores.push(
         {
-          answer: result,
+          answer: (answer) ? this._checkresult(answer) : false,
           time: this._timer
         }
     );
+  }
 
-    if (!result) {
+  checkGameOver() {
+    if (!this._gameStatus.scores[this._gameStatus.scores.length - 1].answer) {
       this._gameStatus.lives--;
 
       if (this._gameStatus.lives < 0) {
-        return false;
+        return true;
       }
     }
 
-    return true;
+    if (!(this._gameStatus.scores.length < this._NUMBER_LEVELS)) {
+      return true;
+    }
+
+    return false;
   }
 
   timerCallback() {}
@@ -228,31 +88,19 @@ export default class GameModel {
     this._gameStatus = {
       playerName: ``,
       lives: 3,
-      currLevel: this._LevelData[0],
+      currLevel: this._LevelsData[0],
       currLevelNum: 0,
       scores: []
     };
   }
 
-  nextLevel(answer) {
-    if (!this._pushAnswer(answer)) {
-      return false;
-    }
-
-    let level = false;
-
-    if (this._gameStatus.currLevelNum < this._LevelData.length - 1) {
-      this._gameStatus.currLevelNum++;
-      this._gameStatus.currLevel = this._LevelData[this._gameStatus.currLevelNum];
-
-      level = true;
-    }
-
-    return level;
+  nextLevel() {
+    this._gameStatus.currLevelNum++;
+    this._gameStatus.currLevel = this._LevelsData[this._gameStatus.currLevelNum];
   }
 
   startTimer() {
-    this._timer = Enums.Times.START_TIME;
+    this._timer = Times.START_TIME;
 
     this._intervalId = setInterval(() => {
       this._timer--;
@@ -264,7 +112,7 @@ export default class GameModel {
         this.timerCallback(this._timer);
       }
 
-    }, Enums.Times.INTERVAL);
+    }, Times.INTERVAL);
   }
 
   stopTimer() {

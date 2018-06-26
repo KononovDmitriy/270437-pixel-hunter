@@ -1,7 +1,7 @@
 import GameModel from './model/game-model.js';
 
-import HeaderPresenter from './presenters/header-presenter.js';
-import HeaderGame from './presenters/header-game-presenter.js';
+import HeaderScreenPresenter from './presenters/header-presenter.js';
+import HeaderGamePresenter from './presenters/header-game-presenter.js';
 import FooterPresenter from './presenters/footer-presenter.js';
 
 import IntroPresenter from './presenters/intro-screen-presenter.js';
@@ -13,11 +13,26 @@ import Game3Presenter from './presenters/game3-screen-presenter.js';
 import StaristicsPresenter from './presenters/statistics-screen-presenter.js';
 
 import utils from './utils.js';
-import Enums from './enums.js';
+import GameScreens from './enums/game-screens-enum.js';
 
 class Application {
   constructor() {
     this._gameModel = new GameModel();
+  }
+
+  _getScreenHeader() {
+    const headerScreenPresenter = new HeaderScreenPresenter();
+    return headerScreenPresenter.start();
+  }
+
+  _getGameHeader() {
+    const headerGamePresenter = new HeaderGamePresenter(this._gameModel);
+    return headerGamePresenter.start();
+  }
+
+  _getFooter() {
+    const footerPresenter = new FooterPresenter();
+    return footerPresenter.start();
   }
 
   initGame() {
@@ -26,56 +41,47 @@ class Application {
 
   showIntro() {
     const introPresenter = new IntroPresenter();
-    const footerPresenter = new FooterPresenter();
 
-    utils.changeScreen(introPresenter.start(), footerPresenter.start());
+    utils.changeScreen(introPresenter.start(), this._getFooter());
   }
 
   showGreeting() {
     const greetingPresenter = new GreetingPresenter();
-    const footerPresenter = new FooterPresenter();
 
-    utils.changeScreen(greetingPresenter.start(), footerPresenter.start());
+    utils.changeScreen(greetingPresenter.start(), this._getFooter());
   }
 
   showRules() {
     const rulesPresenter = new RulesPresenter();
-    const headerPresenter = new HeaderPresenter();
-    const footerPresenter = new FooterPresenter();
 
-    utils.changeScreen(rulesPresenter.start(), footerPresenter.start(),
-        headerPresenter.start());
+    utils.changeScreen(rulesPresenter.start(), this._getFooter(),
+        this._getScreenHeader());
   }
 
   showGame() {
-    const headerGamePresenter = new HeaderGame(this._gameModel);
-    const footerPresenter = new FooterPresenter();
-
     let gamePresenter;
 
     switch (this._gameModel.gameStatus.currLevel.screen) {
-      case Enums.GameScreens.SCREEN1:
+      case GameScreens.SCREEN1:
         gamePresenter = new Game1Presenter(this._gameModel);
         break;
-      case Enums.GameScreens.SCREEN2:
+      case GameScreens.SCREEN2:
         gamePresenter = new Game2Presenter(this._gameModel);
         break;
-      case Enums.GameScreens.SCREEN3:
+      case GameScreens.SCREEN3:
         gamePresenter = new Game3Presenter(this._gameModel);
         break;
     }
 
-    utils.changeScreen(gamePresenter.start(), footerPresenter.start(),
-        headerGamePresenter.start());
+    utils.changeScreen(gamePresenter.start(), this._getFooter(),
+        this._getGameHeader());
   }
 
   showStatistics() {
     const rulesPresenter = new StaristicsPresenter(this._gameModel);
-    const headerPresenter = new HeaderPresenter();
-    const footerPresenter = new FooterPresenter();
 
-    utils.changeScreen(rulesPresenter.start(), footerPresenter.start(),
-        headerPresenter.start());
+    utils.changeScreen(rulesPresenter.start(), this._getFooter(),
+        this._getScreenHeader());
   }
 }
 

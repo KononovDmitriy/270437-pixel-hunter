@@ -12,13 +12,15 @@ export default class Game1Presenter extends AbstractPresenter {
 
   callback(answer) {
     this._gameModel.stopTimer();
-    if (!this._gameModel.nextLevel(answer)) {
-      application.showStatistics();
-      return false;
-    }
 
-    application.showGame();
-    return true;
+    this._gameModel.pushAnswer(answer);
+
+    if (this._gameModel.checkGameOver()) {
+      application.showStatistics();
+    } else {
+      this._gameModel.nextLevel();
+      application.showGame();
+    }
   }
 
   start() {

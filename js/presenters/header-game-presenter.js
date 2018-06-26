@@ -10,10 +10,14 @@ export default class FooterPresenter extends AbstractPresenter {
 
     this._gameModel.timerCallback = (time) => {
       if (!time) {
-        if (this._gameModel.nextLevel(false)) {
-          application.showGame();
-        } else {
+
+        this._gameModel.pushAnswer(false);
+
+        if (this._gameModel.checkGameOver()) {
           application.showStatistics();
+        } else {
+          this._gameModel.nextLevel();
+          application.showGame();
         }
       }
 
