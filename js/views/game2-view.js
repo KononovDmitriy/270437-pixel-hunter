@@ -47,9 +47,9 @@ export default class Game2View extends AbstractView {
     const inputGrp1 = screenElement.querySelectorAll(`input[name="question1"]`);
     screenElement.querySelector(`.game__content`).
       addEventListener(`change`, () => {
-        this.game2Callback(this._getResult(inputGrp1));
+        this.viewCallback(this._getResult(inputGrp1));
       });
   }
 
-  game2Callback() {}
+  viewCallback() {}
 }

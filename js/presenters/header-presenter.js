@@ -1,13 +1,13 @@
+import AbstractPresenter from './abstract-presenter.js';
 import HeaderView from './../views/header-view.js';
 import application from './../application.js';
 
-const headerView = new HeaderView();
+export default class FooterPresenter extends AbstractPresenter {
+  constructor() {
+    super(new HeaderView());
+  }
 
-headerView.screenHeaderCallback = () => {
-  application.showGreeting();
-};
-
-
-export default () => {
-  return headerView.element();
-};
+  callback() {
+    application.showGreeting();
+  }
+}

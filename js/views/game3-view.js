@@ -37,9 +37,9 @@ export default class Game2View extends AbstractView {
 
   bind(screenElement) {
     screenElement.querySelector(`.game__content`).addEventListener(`click`, (evt) => {
-      this.game3Callback(this._getResult(evt));
+      this.viewCallback(this._getResult(evt));
     });
   }
 
-  game3Callback() {}
+  viewCallback() {}
 }

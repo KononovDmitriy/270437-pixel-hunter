@@ -1,5 +1,4 @@
-import GameScreens from '../game-screen-types.js';
-// import application from './../application.js';
+import Enums from '../enums.js';
 
 export default class GameModel {
   constructor() {
@@ -41,7 +40,7 @@ export default class GameModel {
 
     this._LevelData = [
       {
-        screen: GameScreens.SCREEN1,
+        screen: Enums.GameScreens.SCREEN1,
         data: {
           img1: {
             url: this._Pictures.PHOTOS[0],
@@ -54,7 +53,7 @@ export default class GameModel {
         }
       },
       {
-        screen: GameScreens.SCREEN1,
+        screen: Enums.GameScreens.SCREEN1,
         data: {
           img1: {
             url: this._Pictures.PAINTINGS[0],
@@ -67,7 +66,7 @@ export default class GameModel {
         }
       },
       {
-        screen: GameScreens.SCREEN1,
+        screen: Enums.GameScreens.SCREEN1,
         data: {
           img1: {
             url: this._Pictures.PHOTOS[1],
@@ -80,7 +79,7 @@ export default class GameModel {
         }
       },
       {
-        screen: GameScreens.SCREEN2,
+        screen: Enums.GameScreens.SCREEN2,
         data: {
           img1: {
             url: this._Pictures.PAINTINGS[2],
@@ -89,7 +88,7 @@ export default class GameModel {
         }
       },
       {
-        screen: GameScreens.SCREEN2,
+        screen: Enums.GameScreens.SCREEN2,
         data: {
           img1: {
             url: this._Pictures.PHOTOS[0],
@@ -98,7 +97,7 @@ export default class GameModel {
         }
       },
       {
-        screen: GameScreens.SCREEN2,
+        screen: Enums.GameScreens.SCREEN2,
         data: {
           img1: {
             url: this._Pictures.PAINTINGS[1],
@@ -107,7 +106,7 @@ export default class GameModel {
         }
       },
       {
-        screen: GameScreens.SCREEN3,
+        screen: Enums.GameScreens.SCREEN3,
         data: {
           title: this._Titles.TITLE1,
           answer: this._Answers.IMG2,
@@ -117,7 +116,7 @@ export default class GameModel {
         }
       },
       {
-        screen: GameScreens.SCREEN3,
+        screen: Enums.GameScreens.SCREEN3,
         data: {
           title: this._Titles.TITLE2,
           answer: this._Answers.IMG1,
@@ -127,7 +126,7 @@ export default class GameModel {
         }
       },
       {
-        screen: GameScreens.SCREEN3,
+        screen: Enums.GameScreens.SCREEN3,
         data: {
           title: this._Titles.TITLE1,
           answer: this._Answers.IMG2,
@@ -137,7 +136,7 @@ export default class GameModel {
         }
       },
       {
-        screen: GameScreens.SCREEN3,
+        screen: Enums.GameScreens.SCREEN3,
         data: {
           title: this._Titles.TITLE2,
           answer: this._Answers.IMG3,
@@ -156,66 +155,8 @@ export default class GameModel {
       scores: []
     };
 
-    this._timer = 30;
+    this._timer = 10;
     this._intervalId = ``;
-
-    this.timerCallback = () => {};
-
-    this._checkScreenGame1 = (answer) => {
-      const result = (answer.img1 === this._gameStatus.currLevel.data.img1.answer &&
-      answer.img2 === this._gameStatus.currLevel.data.img2.answer) ? true : false;
-
-      return result;
-    };
-
-    this._checkScreenGame2 = (answer) => {
-      return (answer.img1 === this._gameStatus.currLevel.data.img1.answer)
-        ? true : false;
-    };
-
-    this._checkScreenGame3 = (answer) => {
-      return (answer.img1 === this._gameStatus.currLevel.data.answer)
-        ? true : false;
-    };
-
-    this._checkresult = (answer) => {
-      let result;
-
-      switch (this._gameStatus.currLevel.screen) {
-        case GameScreens.SCREEN1:
-          result = this._checkScreenGame1(answer);
-          break;
-        case GameScreens.SCREEN2:
-          result = this._checkScreenGame2(answer);
-          break;
-        case GameScreens.SCREEN3:
-          result = this._checkScreenGame3(answer);
-          break;
-      }
-
-      return result;
-    };
-
-    this._pushAnswer = (answer) => {
-      const result = (answer) ? this._checkresult(answer) : false;
-
-      if (!result) {
-        this._gameStatus.lives--;
-
-        if (this._gameStatus.lives < 0) {
-          return false;
-        }
-      }
-
-      this._gameStatus.scores.push(
-          {
-            answer: result,
-            time: this._timer
-          }
-      );
-
-      return true;
-    };
   }
 
   get gameStatus() {
@@ -225,6 +166,63 @@ export default class GameModel {
   set playerName(name) {
     this._gameStatus.playerName = name;
   }
+
+  _checkScreenGame1(answer) {
+    const result = (answer.img1 === this._gameStatus.currLevel.data.img1.answer &&
+    answer.img2 === this._gameStatus.currLevel.data.img2.answer) ? true : false;
+
+    return result;
+  }
+
+  _checkScreenGame2(answer) {
+    return (answer.img1 === this._gameStatus.currLevel.data.img1.answer)
+      ? true : false;
+  }
+
+  _checkScreenGame3(answer) {
+    return (answer.img1 === this._gameStatus.currLevel.data.answer)
+      ? true : false;
+  }
+
+  _checkresult(answer) {
+    let result;
+
+    switch (this._gameStatus.currLevel.screen) {
+      case Enums.GameScreens.SCREEN1:
+        result = this._checkScreenGame1(answer);
+        break;
+      case Enums.GameScreens.SCREEN2:
+        result = this._checkScreenGame2(answer);
+        break;
+      case Enums.GameScreens.SCREEN3:
+        result = this._checkScreenGame3(answer);
+        break;
+    }
+    return result;
+  }
+
+  _pushAnswer(answer) {
+    const result = (answer) ? this._checkresult(answer) : false;
+
+    this._gameStatus.scores.push(
+        {
+          answer: result,
+          time: this._timer
+        }
+    );
+
+    if (!result) {
+      this._gameStatus.lives--;
+
+      if (this._gameStatus.lives < 0) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  timerCallback() {}
 
   initGame() {
     this._gameStatus = {
@@ -254,7 +252,7 @@ export default class GameModel {
   }
 
   startTimer() {
-    this._timer = 30;
+    this._timer = Enums.Times.START_TIME;
 
     this._intervalId = setInterval(() => {
       this._timer--;
@@ -266,7 +264,7 @@ export default class GameModel {
         this.timerCallback(this._timer);
       }
 
-    }, 1000);
+    }, Enums.Times.INTERVAL);
   }
 
   stopTimer() {

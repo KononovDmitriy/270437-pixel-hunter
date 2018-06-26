@@ -90,10 +90,10 @@ export default class Game1View extends AbstractView {
     screenElement.querySelector(`.game__content`).
       addEventListener(`change`, () => {
         if (this._checkResult(inputGrp1, inputGrp2)) {
-          this.game1Callback(this._getResult(inputGrp1, inputGrp2));
+          this.viewCallback(this._getResult(inputGrp1, inputGrp2));
         }
       });
   }
 
-  game1Callback() {}
+  viewCallback() {}
 }

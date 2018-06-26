@@ -1,29 +1,27 @@
+import AbstractPresenter from './abstract-presenter.js';
 import Game3View from './../views/game3-view.js';
 import application from './../application.js';
 
 import utils from './../utils.js';
 
-export default class Game3Presenter {
+export default class FooterPresenter extends AbstractPresenter {
   constructor(gameModel) {
-    this._gameModel = gameModel;
+    super(new Game3View(gameModel.gameStatus,
+        utils.statisticBar(gameModel.gameStatus.scores)), gameModel);
+  }
 
-    this._game3View = new Game3View(gameModel.gameStatus,
-        utils.statisticBar(gameModel.gameStatus.scores));
+  callback(answer) {
+    this._gameModel.stopTimer();
 
-    this._game3View.game3Callback = (answer) => {
-      this._gameModel.stopTimer();
-
-      if (!this._gameModel.nextLevel(answer)) {
-        application.showStatistics();
-        return false;
-      }
-
+    if (this._gameModel.nextLevel(answer)) {
       application.showGame();
-      return true;
-    };
+    } else {
+      application.showStatistics();
+    }
   }
 
   start() {
-    return this._game3View.element();
+    this._gameModel.startTimer();
+    return this._view.element();
   }
 }

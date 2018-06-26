@@ -1,9 +1,8 @@
-import GameScreens from './game-screen-types.js';
 import GameModel from './model/game-model.js';
 
-import header from './presenters/header-presenter.js';
+import HeaderPresenter from './presenters/header-presenter.js';
 import HeaderGame from './presenters/header-game-presenter.js';
-import footer from './presenters/footer-presenter.js';
+import FooterPresenter from './presenters/footer-presenter.js';
 
 import IntroPresenter from './presenters/intro-screen-presenter.js';
 import GreetingPresenter from './presenters/greeting-screen-presenter.js';
@@ -14,52 +13,69 @@ import Game3Presenter from './presenters/game3-screen-presenter.js';
 import StaristicsPresenter from './presenters/statistics-screen-presenter.js';
 
 import utils from './utils.js';
-
-const gameModel = new GameModel();
+import Enums from './enums.js';
 
 class Application {
+  constructor() {
+    this._gameModel = new GameModel();
+  }
+
   initGame() {
-    gameModel.initGame();
+    this._gameModel.initGame();
   }
 
   showIntro() {
     const introPresenter = new IntroPresenter();
-    utils.changeScreen(introPresenter.element, footer());
+    const footerPresenter = new FooterPresenter();
+
+    utils.changeScreen(introPresenter.start(), footerPresenter.start());
   }
 
   showGreeting() {
     const greetingPresenter = new GreetingPresenter();
-    utils.changeScreen(greetingPresenter.element, footer());
+    const footerPresenter = new FooterPresenter();
+
+    utils.changeScreen(greetingPresenter.start(), footerPresenter.start());
   }
 
   showRules() {
     const rulesPresenter = new RulesPresenter();
-    utils.changeScreen(rulesPresenter.element, footer(), header());
+    const headerPresenter = new HeaderPresenter();
+    const footerPresenter = new FooterPresenter();
+
+    utils.changeScreen(rulesPresenter.start(), footerPresenter.start(),
+        headerPresenter.start());
   }
 
   showGame() {
-    const headerGamePresenter = new HeaderGame(gameModel);
+    const headerGamePresenter = new HeaderGame(this._gameModel);
+    const footerPresenter = new FooterPresenter();
 
     let gamePresenter;
 
-    switch (gameModel.gameStatus.currLevel.screen) {
-      case GameScreens.SCREEN1:
-        gamePresenter = new Game1Presenter(gameModel);
+    switch (this._gameModel.gameStatus.currLevel.screen) {
+      case Enums.GameScreens.SCREEN1:
+        gamePresenter = new Game1Presenter(this._gameModel);
         break;
-      case GameScreens.SCREEN2:
-        gamePresenter = new Game2Presenter(gameModel);
+      case Enums.GameScreens.SCREEN2:
+        gamePresenter = new Game2Presenter(this._gameModel);
         break;
-      case GameScreens.SCREEN3:
-        gamePresenter = new Game3Presenter(gameModel);
+      case Enums.GameScreens.SCREEN3:
+        gamePresenter = new Game3Presenter(this._gameModel);
         break;
     }
 
-    utils.changeScreen(gamePresenter.start(), footer(), headerGamePresenter.start());
+    utils.changeScreen(gamePresenter.start(), footerPresenter.start(),
+        headerGamePresenter.start());
   }
 
   showStatistics() {
-    const rulesPresenter = new StaristicsPresenter(gameModel);
-    utils.changeScreen(rulesPresenter.start, footer(), header());
+    const rulesPresenter = new StaristicsPresenter(this._gameModel);
+    const headerPresenter = new HeaderPresenter();
+    const footerPresenter = new FooterPresenter();
+
+    utils.changeScreen(rulesPresenter.start(), footerPresenter.start(),
+        headerPresenter.start());
   }
 }
 

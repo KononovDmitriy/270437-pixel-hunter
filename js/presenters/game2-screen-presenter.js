@@ -1,29 +1,29 @@
+import AbstractPresenter from './abstract-presenter.js';
 import Game2View from './../views/game2-view.js';
 import application from './../application.js';
 
 import utils from './../utils.js';
 
-export default class Game2Presenter {
+export default class FooterPresenter extends AbstractPresenter {
   constructor(gameModel) {
-    this._gameModel = gameModel;
+    super(new Game2View(gameModel.gameStatus,
+        utils.statisticBar(gameModel.gameStatus.scores)), gameModel);
+  }
 
-    this._game2View = new Game2View(gameModel.gameStatus,
-        utils.statisticBar(gameModel.gameStatus.scores));
+  callback(answer) {
+    this._gameModel.stopTimer();
 
-    this._game2View.game2Callback = (answer) => {
-      this._gameModel.stopTimer();
-
-      if (!this._gameModel.nextLevel(answer)) {
-        application.showStatistics();
-        return false;
-      }
-
+    if (this._gameModel.nextLevel(answer)) {
       application.showGame();
-      return true;
-    };
+    } else {
+      application.showStatistics();
+    }
+
+    return true;
   }
 
   start() {
-    return this._game2View.element();
+    this._gameModel.startTimer();
+    return this._view.element();
   }
 }

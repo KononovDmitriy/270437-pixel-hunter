@@ -1,3 +1,4 @@
+import Enums from './enums.js';
 const mainNode = document.querySelector(`.central`);
 
 export default {
@@ -21,11 +22,6 @@ export default {
       SLOW: `slow`
     };
 
-    const TimeIntervals = {
-      FAST: 20,
-      SLOW: 10
-    };
-
     const getUlTemplate = (list) => {
       return `<ul class="stats">${list}</ul>`;
     };
@@ -42,15 +38,15 @@ export default {
 
           let time = scores[i].time;
 
-          if (time > TimeIntervals.FAST) {
+          if (time > Enums.Times.FAST_ANSWER) {
             currentClass = StatsPictures.FAST;
           }
 
-          if (time < TimeIntervals.SLOW) {
+          if (time < Enums.Times.SLOW_ANSWER) {
             currentClass = StatsPictures.SLOW;
           }
 
-          if (time >= TimeIntervals.SLOW && time <= TimeIntervals.FAST) {
+          if (time >= Enums.Times.SLOW_ANSWER && time <= Enums.Times.FAST_ANSWER) {
             currentClass = StatsPictures.CORRECT;
           }
 
@@ -69,6 +65,12 @@ export default {
   },
 
   scoring: (playerAnswers, playerLife) => {
+    const Scores = {
+      ANSWER: 100,
+      FAST_ANSWER: 50,
+      SLOW_ANSWER: 50,
+      LIVE: 50
+    };
 
     const ErrorMessages = {
       NOT_ARRAY: `playerAnswers expected array`,
@@ -91,16 +93,16 @@ export default {
 
       if (curEl.answer) {
         pointsSum.answer.positiveAnswCnt++;
-        pointsSum.answer.answSum += 100;
+        pointsSum.answer.answSum += Scores.ANSWER;
 
-        if (curEl.time > 20) {
+        if (curEl.time > Enums.Times.FAST_ANSWER) {
           pointsSum.fast.fastCnt++;
-          pointsSum.fast.fastSum += 50;
+          pointsSum.fast.fastSum += Scores.FAST_ANSWER;
         }
 
-        if (curEl.time < 10) {
+        if (curEl.time < Enums.Times.SLOW_ANSWER) {
           pointsSum.slow.slowCnt++;
-          pointsSum.slow.slowSum -= 50;
+          pointsSum.slow.slowSum -= Scores.SLOW_ANSWER;
         }
       }
 
@@ -127,7 +129,7 @@ export default {
     });
 
     points.lives.livesCnt = playerLife;
-    points.lives.livesSum = 50 * playerLife;
+    points.lives.livesSum = Scores.LIVE * playerLife;
 
     points.scores = points.answer.answSum + points.fast.fastSum +
       points.slow.slowSum + points.lives.livesSum;

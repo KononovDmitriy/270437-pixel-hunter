@@ -1,7 +1,8 @@
+import AbstractPresenter from './abstract-presenter.js';
 import FooterView from './../views/footer-view.js';
 
-const footerView = new FooterView();
-
-export default () => {
-  return footerView.element();
-};
+export default class FooterPresenter extends AbstractPresenter {
+  constructor() {
+    super(new FooterView());
+  }
+}

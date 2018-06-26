@@ -1,17 +1,14 @@
+import AbstractPresenter from './abstract-presenter.js';
 import RulesView from './../views/rules-view.js';
 import application from './../application.js';
 
-export default class RulesPresenter {
+export default class FooterPresenter extends AbstractPresenter {
   constructor() {
-    this._view = new RulesView();
-
-    this._view.rulesCallback = () => {
-      application.initGame(true);
-      application.showGame(true);
-    };
+    super(new RulesView());
   }
 
-  get element() {
-    return this._view.element();
+  callback() {
+    application.initGame();
+    application.showGame();
   }
 }

@@ -1,16 +1,11 @@
+import AbstractPresenter from './abstract-presenter.js';
 import StatisticsView from './../views/statistics-view.js';
 import utils from './../utils.js';
 
-export default class RulesPresenter {
+export default class StatisticsPresenter extends AbstractPresenter {
   constructor(gameModel) {
-    this._gameModel = gameModel;
-    this._view = new StatisticsView(
-        utils.scoring(this._gameModel.gameStatus.scores,
-            this._gameModel.gameStatus.lives),
-        utils.statisticBar(this._gameModel.gameStatus.scores));
-  }
-
-  get start() {
-    return this._view.element();
+    super(new StatisticsView(utils.scoring(gameModel.gameStatus.scores,
+        gameModel.gameStatus.lives),
+    utils.statisticBar(gameModel.gameStatus.scores)));
   }
 }

@@ -18,9 +18,9 @@ export default class IntroView extends AbstractView {
   bind(screenElement) {
     screenElement.querySelector(`.intro__asterisk`).addEventListener(
         `click`, () => {
-          this.introCallback();
+          this.viewCallback();
         });
   }
 
-  introCallback() {}
+  viewCallback() {}
 }

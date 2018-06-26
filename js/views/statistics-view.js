@@ -5,8 +5,6 @@ export default class ScreenStats extends AbstractView {
     super();
     this._result = result;
     this._statisticsBar = statisticsBar;
-
-    console.dir(this._result);
   }
 
   get template() {
