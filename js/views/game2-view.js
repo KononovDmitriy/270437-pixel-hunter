@@ -1,16 +1,14 @@
-import AbstractScreenGame from './abstract-screen-game.js';
+import AbstractView from './abstract-view.js';
 
-import header from './screen-header-game.js';
-import footer from './screen-footer.js';
-
-class ScreenGame2 extends AbstractScreenGame {
-  constructor(gameStatus, scores) {
-    super(gameStatus, scores);
+export default class Game2View extends AbstractView {
+  constructor(gameStatus, statisticsBar) {
+    super();
+    this._gameStatus = gameStatus;
+    this._statisticsBar = statisticsBar;
   }
 
   get template() {
-    return `
-      <div class="game">
+    return `<div class="game">
         <p class="game__task">Угадай, фото или рисунок?</p>
         <form class="game__content  game__content--wide">
           <div class="game__option">
@@ -49,18 +47,9 @@ class ScreenGame2 extends AbstractScreenGame {
     const inputGrp1 = screenElement.querySelectorAll(`input[name="question1"]`);
     screenElement.querySelector(`.game__content`).
       addEventListener(`change`, () => {
-        this.screenGameCallback(this._getResult(inputGrp1));
+        this.viewCallback(this._getResult(inputGrp1));
       });
   }
 
-  screenGameCallback() {}
+  viewCallback() {}
 }
-
-const screenGame2 = new ScreenGame2();
-
-export default (gameStatus, statisticsBar, callback) => {
-  screenGame2.screenGameCallback = callback;
-
-  return screenGame2.element(gameStatus, statisticsBar, footer(),
-      header(gameStatus.lives));
-};

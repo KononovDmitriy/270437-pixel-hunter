@@ -1,9 +1,6 @@
-
-import footer from './screen-footer.js';
-import header from './screen-header.js';
 import AbstractView from './abstract-view.js';
 
-class ScreenRules extends AbstractView {
+export default class RulesView extends AbstractView {
   constructor() {
     super();
   }
@@ -33,7 +30,7 @@ class ScreenRules extends AbstractView {
 
     screenElement.querySelector(`.rules__form`).addEventListener(`submit`, (evt) => {
       evt.preventDefault();
-      this.rulesCallback(evt.target[0].value);
+      this.viewCallback(evt.target[0].value);
     });
 
     screenElement.querySelector(`.rules__input`).addEventListener(`input`, (evt) => {
@@ -47,17 +44,7 @@ class ScreenRules extends AbstractView {
     });
   }
 
-  rulesCallback() {
+  viewCallback() {
     throw new Error(`rulesCallback is required`);
   }
 }
-
-const screenRules = new ScreenRules();
-
-export default (callback) => {
-  screenRules.rulesCallback = () => {
-    callback();
-  };
-  const element = screenRules.element(footer(), header());
-  return element;
-};

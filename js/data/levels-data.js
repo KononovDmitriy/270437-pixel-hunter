@@ -1,30 +1,18 @@
-import pictures from './pictures-data.js';
-import GameScreens from '../game-screen-types.js';
-
-const Titles = {
-  TITLE1: `Найдите рисунок среди изображений`,
-  TITLE2: `Найдите фото среди изображений`,
-};
-
-const Answers = {
-  PHOTO: `photo`,
-  PAINT: `paint`,
-  IMG1: `img1`,
-  IMG2: `img2`,
-  IMG3: `img3`,
-
-};
+import GameScreens from './../enums/game-screens-enum.js';
+import Pictures from './pictures.js';
+import Answers from './answers.js';
+import Titles from './titles.js';
 
 export default [
   {
     screen: GameScreens.SCREEN1,
     data: {
       img1: {
-        url: pictures.photos[0],
+        url: Pictures.PHOTOS[0],
         answer: Answers.PHOTO
       },
       img2: {
-        url: pictures.paintings[2],
+        url: Pictures.PAINTINGS[2],
         answer: Answers.PAINT
       }
     }
@@ -33,11 +21,11 @@ export default [
     screen: GameScreens.SCREEN1,
     data: {
       img1: {
-        url: pictures.paintings[0],
+        url: Pictures.PAINTINGS[0],
         answer: Answers.PAINT
       },
       img2: {
-        url: pictures.photos[2],
+        url: Pictures.PHOTOS[2],
         answer: Answers.PHOTO
       }
     }
@@ -46,11 +34,11 @@ export default [
     screen: GameScreens.SCREEN1,
     data: {
       img1: {
-        url: pictures.photos[1],
+        url: Pictures.PHOTOS[1],
         answer: Answers.PHOTO
       },
       img2: {
-        url: pictures.paintings[1],
+        url: Pictures.PAINTINGS[1],
         answer: Answers.PAINT
       }
     }
@@ -59,7 +47,7 @@ export default [
     screen: GameScreens.SCREEN2,
     data: {
       img1: {
-        url: pictures.paintings[2],
+        url: Pictures.PAINTINGS[2],
         answer: Answers.PAINT
       }
     }
@@ -68,7 +56,7 @@ export default [
     screen: GameScreens.SCREEN2,
     data: {
       img1: {
-        url: pictures.photos[0],
+        url: Pictures.PHOTOS[0],
         answer: Answers.PHOTO
       }
     }
@@ -77,7 +65,7 @@ export default [
     screen: GameScreens.SCREEN2,
     data: {
       img1: {
-        url: pictures.paintings[1],
+        url: Pictures.PAINTINGS[1],
         answer: Answers.PAINT
       }
     }
@@ -87,9 +75,9 @@ export default [
     data: {
       title: Titles.TITLE1,
       answer: Answers.IMG2,
-      img1: pictures.photos[2],
-      img2: pictures.paintings[2],
-      img3: pictures.photos[0]
+      img1: Pictures.PHOTOS[2],
+      img2: Pictures.PAINTINGS[2],
+      img3: Pictures.PHOTOS[0]
     }
   },
   {
@@ -97,9 +85,9 @@ export default [
     data: {
       title: Titles.TITLE2,
       answer: Answers.IMG1,
-      img1: pictures.photos[1],
-      img2: pictures.paintings[2],
-      img3: pictures.paintings[0]
+      img1: Pictures.PHOTOS[1],
+      img2: Pictures.PAINTINGS[2],
+      img3: Pictures.PAINTINGS[0]
     }
   },
   {
@@ -107,9 +95,9 @@ export default [
     data: {
       title: Titles.TITLE1,
       answer: Answers.IMG2,
-      img1: pictures.photos[2],
-      img2: pictures.paintings[2],
-      img3: pictures.photos[1]
+      img1: Pictures.PHOTOS[2],
+      img2: Pictures.PAINTINGS[2],
+      img3: Pictures.PHOTOS[1]
     }
   },
   {
@@ -117,9 +105,9 @@ export default [
     data: {
       title: Titles.TITLE2,
       answer: Answers.IMG3,
-      img1: pictures.paintings[1],
-      img2: pictures.paintings[2],
-      img3: pictures.photos[2]
+      img1: Pictures.PAINTINGS[1],
+      img2: Pictures.PAINTINGS[2],
+      img3: Pictures.PHOTOS[2]
     }
   },
 ];

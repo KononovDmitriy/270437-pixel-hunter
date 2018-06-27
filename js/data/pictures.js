@@ -1,5 +1,5 @@
 export default {
-  paintings: [
+  PAINTINGS: [
     // People
     `https://k42.kn3.net/CF42609C8.jpg`,
 
@@ -9,7 +9,7 @@ export default {
     // Nature
     `https://k32.kn3.net/5C7060EC5.jpg`
   ],
-  photos: [
+  PHOTOS: [
     // People
     `http://i.imgur.com/1KegWPz.jpg`,
 

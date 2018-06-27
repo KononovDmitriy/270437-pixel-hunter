@@ -1,11 +1,10 @@
-import AbstractScreenGame from './abstract-screen-game.js';
+import AbstractView from './abstract-view.js';
 
-import header from './screen-header-game.js';
-import footer from './screen-footer.js';
-
-class ScreenGame3 extends AbstractScreenGame {
-  constructor(gameStatus, scores) {
-    super(gameStatus, scores);
+export default class Game2View extends AbstractView {
+  constructor(gameStatus, statisticsBar) {
+    super();
+    this._gameStatus = gameStatus;
+    this._statisticsBar = statisticsBar;
   }
 
   get template() {
@@ -38,18 +37,9 @@ class ScreenGame3 extends AbstractScreenGame {
 
   bind(screenElement) {
     screenElement.querySelector(`.game__content`).addEventListener(`click`, (evt) => {
-      this.screenGameCallback(this._getResult(evt));
+      this.viewCallback(this._getResult(evt));
     });
   }
 
-  screenGameCallback() {}
+  viewCallback() {}
 }
-
-const screenGame3 = new ScreenGame3();
-
-export default (gameStatus, statisticsBar, callback) => {
-  screenGame3.screenGameCallback = callback;
-
-  return screenGame3.element(gameStatus, statisticsBar, footer(),
-      header(gameStatus.lives));
-};

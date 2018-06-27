@@ -1,10 +1,10 @@
-import footer from './screen-footer.js';
-import header from './screen-header.js';
 import AbstractView from './abstract-view.js';
 
-class ScreenStats extends AbstractView {
-  constructor() {
+export default class ScreenStats extends AbstractView {
+  constructor(result, statisticsBar) {
     super();
+    this._result = result;
+    this._statisticsBar = statisticsBar;
   }
 
   get template() {
@@ -15,7 +15,7 @@ class ScreenStats extends AbstractView {
           <tr>
             <td class="result__number">1.</td>
             <td colspan="2">
-              ${this._statisticBar}
+              ${this._statisticsBar}
             </td>
               ${(this._result !== -1) ? `
                 <td class="result__points">×&nbsp;100</td>
@@ -27,7 +27,7 @@ class ScreenStats extends AbstractView {
             <tr>
             <td></td>
               <td class="result__extra">Бонус за скорость:</td>
-              <td class="result__extra">${this._result.fast.Cnt}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+              <td class="result__extra">${this._result.fast.fastCnt}&nbsp;<span class="stats__result stats__result--fast"></span></td>
               <td class="result__points">×&nbsp;50</td>
               <td class="result__total">${this._result.fast.fastSum}</td>
             </tr>` : ``}
@@ -43,9 +43,9 @@ class ScreenStats extends AbstractView {
             <tr>
               <td></td>
               <td class="result__extra">Штраф за медлительность:</td>
-              <td class="result__extra">${this._result.slow.livesCnt}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+              <td class="result__extra">${this._result.slow.slowCnt}&nbsp;<span class="stats__result stats__result--slow"></span></td>
               <td class="result__points">×&nbsp;50</td>
-              <td class="result__total">${this._result.slow.livesSum}</td>
+              <td class="result__total">${this._result.slow.slowSum}</td>
             </tr>` : ``}
           ${(this._result !== -1) ? `
             <tr>
@@ -106,22 +106,4 @@ class ScreenStats extends AbstractView {
         </table>
       </div>`;
   }
-
-  bind() {}
-
-  element(result, answers, statisticBar, footerElement, headerElement) {
-    this._result = result;
-    this._answers = answers;
-    this._statisticBar = statisticBar;
-    this._element = this.render(footerElement, headerElement);
-    this.bind(this._element);
-
-    return this._element;
-  }
 }
-
-const screenStats = new ScreenStats();
-
-export default (result, answers, statisticBar) => {
-  return screenStats.element(result, answers, statisticBar, footer(), header());
-};

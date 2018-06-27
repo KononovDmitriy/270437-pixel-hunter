@@ -1,5 +1,5 @@
 import {assert} from 'chai';
-import scoring from '../scoring.js';
+import utils from '../utils.js';
 
 const TEST_QUERIES = {
   gameOverTest1: {
@@ -91,56 +91,56 @@ const TEST_QUERIES = {
 describe(`Module scoring`, () => {
 
   it(`it should throw Error if the first input value is not an array`, () => {
-    assert.throws(() => scoring(`gg`, 33));
-    assert.throws(() => scoring(33, 33));
-    assert.throws(() => scoring(null, 33));
-    assert.throws(() => scoring(undefined, 33));
-    assert.throws(() => scoring(Infinity, 33));
-    assert.throws(() => scoring({}, 33));
-    assert.doesNotThrow(() => scoring([], 33));
+    assert.throws(() => utils.scoring(`gg`, 33));
+    assert.throws(() => utils.scoring(33, 33));
+    assert.throws(() => utils.scoring(null, 33));
+    assert.throws(() => utils.scoring(undefined, 33));
+    assert.throws(() => utils.scoring(Infinity, 33));
+    assert.throws(() => utils.scoring({}, 33));
+    assert.doesNotThrow(() => utils.scoring([], 33));
   });
 
   it(`it should throw Error if the second input value is not an number`, () => {
-    assert.throws(() => scoring([], `gg`));
-    assert.throws(() => scoring([], null));
-    assert.throws(() => scoring([], undefined));
-    assert.throws(() => scoring([], Infinity));
-    assert.throws(() => scoring([], {}));
-    assert.throws(() => scoring([], []));
-    assert.doesNotThrow(() => scoring([], 33));
+    assert.throws(() => utils.scoring([], `gg`));
+    assert.throws(() => utils.scoring([], null));
+    assert.throws(() => utils.scoring([], undefined));
+    assert.throws(() => utils.scoring([], Infinity));
+    assert.throws(() => utils.scoring([], {}));
+    assert.throws(() => utils.scoring([], []));
+    assert.doesNotThrow(() => utils.scoring([], 33));
   });
 
   it(`it should return -1`, () => {
-    assert.equal(scoring(TEST_QUERIES.gameOverTest1.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.gameOverTest1.answers,
         TEST_QUERIES.gameOverTest1.lives), -1);
 
-    assert.equal(scoring(TEST_QUERIES.gameOverTest2.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.gameOverTest2.answers,
         TEST_QUERIES.gameOverTest2.lives), -1);
 
-    assert.equal(scoring(TEST_QUERIES.gameOverTest3.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.gameOverTest3.answers,
         TEST_QUERIES.gameOverTest3.lives), -1);
   });
 
   it(`it should return correct values`, () => {
-    assert.equal(scoring(TEST_QUERIES.returnsTest1.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.returnsTest1.answers,
         TEST_QUERIES.returnsTest1.lives).scores, TEST_QUERIES.returnsTest1.return);
 
-    assert.equal(scoring(TEST_QUERIES.returnsTest2.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.returnsTest2.answers,
         TEST_QUERIES.returnsTest2.lives).scores, TEST_QUERIES.returnsTest2.return);
 
-    assert.equal(scoring(TEST_QUERIES.returnsTest3.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.returnsTest3.answers,
         TEST_QUERIES.returnsTest3.lives).scores, TEST_QUERIES.returnsTest3.return);
 
-    assert.equal(scoring(TEST_QUERIES.returnsTest4.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.returnsTest4.answers,
         TEST_QUERIES.returnsTest4.lives).scores, TEST_QUERIES.returnsTest4.return);
 
-    assert.equal(scoring(TEST_QUERIES.returnsTest5.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.returnsTest5.answers,
         TEST_QUERIES.returnsTest5.lives).scores, TEST_QUERIES.returnsTest5.return);
 
-    assert.equal(scoring(TEST_QUERIES.returnsTest6.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.returnsTest6.answers,
         TEST_QUERIES.returnsTest6.lives).scores, TEST_QUERIES.returnsTest6.return);
 
-    assert.equal(scoring(TEST_QUERIES.returnsTest7.answers,
+    assert.equal(utils.scoring(TEST_QUERIES.returnsTest7.answers,
         TEST_QUERIES.returnsTest7.lives).scores, TEST_QUERIES.returnsTest7.return);
 
   });
