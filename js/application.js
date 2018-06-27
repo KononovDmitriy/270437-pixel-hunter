@@ -13,11 +13,12 @@ import Game3Presenter from './presenters/game3-screen-presenter.js';
 import StaristicsPresenter from './presenters/statistics-screen-presenter.js';
 
 import utils from './utils.js';
+import Loader from './loader.js';
 import GameScreens from './enums/game-screens-enum.js';
 
 class Application {
   constructor() {
-    this._gameModel = new GameModel();
+    this._gameModel = ``;
   }
 
   _getScreenHeader() {
@@ -33,6 +34,19 @@ class Application {
   _getFooter() {
     const footerPresenter = new FooterPresenter();
     return footerPresenter.start();
+  }
+
+  start() {
+    const successCallback = (levelData) => {
+      this._gameModel = new GameModel(levelData);
+    };
+
+    const errorCallback = (error) => {
+      this.showError(error);
+    };
+
+    this.showIntro();
+    Loader.loadData(successCallback, errorCallback);
   }
 
   initGame() {
@@ -61,7 +75,7 @@ class Application {
   showGame() {
     let gamePresenter;
 
-    switch (this._gameModel.gameStatus.currLevel.screen) {
+    switch (this._gameModel.gameStatus.currLevel.type) {
       case GameScreens.SCREEN1:
         gamePresenter = new Game1Presenter(this._gameModel);
         break;
@@ -82,6 +96,10 @@ class Application {
 
     utils.changeScreen(rulesPresenter.start(), this._getFooter(),
         this._getScreenHeader());
+  }
+
+  showError(error) {
+    console.dir(error);
   }
 }
 

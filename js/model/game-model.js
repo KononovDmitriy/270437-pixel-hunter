@@ -1,11 +1,19 @@
 import Times from './../enums/times-enum.js';
 import GameScreens from './../enums/game-screens-enum.js';
-import LevelsData from './../data/levels-data.js';
 
 export default class GameModel {
-  constructor() {
+  constructor(levelsData) {
     this._NUMBER_LEVELS = 10;
-    this._LevelsData = LevelsData;
+    this._Question = {
+      PHOTO: `Найдите фото среди изображений`,
+      PAINTING: `Найдите рисунок среди изображений`
+    };
+    this.AnswerType = {
+      PAINTING: `painting`,
+      PHOTO: `photo`
+    };
+
+    this._LevelsData = levelsData;
 
     this._gameStatus = {
       playerName: ``,
@@ -28,22 +36,26 @@ export default class GameModel {
   }
 
   _checkScreenGame1(answer) {
-    return answer.img1 === this._gameStatus.currLevel.data.img1.answer &&
-      answer.img2 === this._gameStatus.currLevel.data.img2.answer;
+    return answer.img1 === this._gameStatus.currLevel.answers[0].type &&
+      answer.img2 === this._gameStatus.currLevel.answers[1].type;
   }
 
   _checkScreenGame2(answer) {
-    return answer.img1 === this._gameStatus.currLevel.data.img1.answer;
+    return answer.img1 === this._gameStatus.currLevel.answers[0].type;
   }
 
   _checkScreenGame3(answer) {
-    return answer.img1 === this._gameStatus.currLevel.data.answer;
+    const goodAnswer =
+      (this._gameStatus.currLevel.question === this._Question.PHOTO) ?
+        this.AnswerType.PHOTO : this.AnswerType.PAINTING;
+
+    return answer.img1 === goodAnswer;
   }
 
   _checkresult(answer) {
     let result;
 
-    switch (this._gameStatus.currLevel.screen) {
+    switch (this._gameStatus.currLevel.type) {
       case GameScreens.SCREEN1:
         result = this._checkScreenGame1(answer);
         break;

@@ -5,21 +5,26 @@ export default class Game2View extends AbstractView {
     super();
     this._gameStatus = gameStatus;
     this._statisticsBar = statisticsBar;
+
+    this._gameStatus.currLevel.answers.forEach((el, index) => {
+      console.log(`element = ${index}, type = ${el.type}`);
+    });
+    console.log(`------------------------------------------`);
   }
 
   get template() {
     return `
       <div class="game">
-        <p class="game__task">${this._gameStatus.currLevel.data.title}</p>
+        <p class="game__task">${this._gameStatus.currLevel.question}</p>
         <form class="game__content  game__content--triple">
-          <div class="game__option" data-name="img1">
-            <img src="${this._gameStatus.currLevel.data.img1}" alt="Option 1" width="304" height="455">
+          <div class="game__option" data-type="${this._gameStatus.currLevel.answers[0].type}">
+            <img src="${this._gameStatus.currLevel.answers[0].image.url}" alt="Option 1" width="304" height="455">
           </div>
-          <div class="game__option  game__option--selected" data-name="img2">
-            <img src="${this._gameStatus.currLevel.data.img2}" alt="Option 1" width="304" height="455">
+          <div class="game__option  game__option--selected" data-type="${this._gameStatus.currLevel.answers[1].type}">
+            <img src="${this._gameStatus.currLevel.answers[1].image.url}" alt="Option 1" width="304" height="455">
           </div>
-          <div class="game__option" data-name="img3">
-            <img src="${this._gameStatus.currLevel.data.img3}" alt="Option 1" width="304" height="455">
+          <div class="game__option" data-type="${this._gameStatus.currLevel.answers[2].type}">
+            <img src="${this._gameStatus.currLevel.answers[2].image.url}" alt="Option 1" width="304" height="455">
           </div>
         </form>
         <div class="stats">
@@ -29,9 +34,9 @@ export default class Game2View extends AbstractView {
   }
 
   _getResult(evt) {
-    const element = (evt.target.dataset.name) ? evt.target : evt.target.parentNode;
+    const element = (evt.target.dataset.type) ? evt.target : evt.target.parentNode;
     return {
-      img1: element.dataset.name
+      img1: element.dataset.type
     };
   }
 

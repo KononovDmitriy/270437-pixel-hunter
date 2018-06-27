@@ -5,20 +5,25 @@ export default class Game2View extends AbstractView {
     super();
     this._gameStatus = gameStatus;
     this._statisticsBar = statisticsBar;
+
+    this._gameStatus.currLevel.answers.forEach((el, index) => {
+      console.log(`element = ${index}, type = ${el.type}`);
+    });
+    console.log(`------------------------------------------`);
   }
 
   get template() {
     return `<div class="game">
-        <p class="game__task">Угадай, фото или рисунок?</p>
+        <p class="game__task">${this._gameStatus.currLevel.question}</p>
         <form class="game__content  game__content--wide">
           <div class="game__option">
-            <img src="${this._gameStatus.currLevel.data.img1.url}" alt="Option 1" width="705" height="455">
+            <img src="${this._gameStatus.currLevel.answers[0].image.url}" alt="Option 1" width="705" height="455">
             <label class="game__answer  game__answer--photo">
               <input name="question1" type="radio" value="photo">
               <span>Фото</span>
             </label>
             <label class="game__answer  game__answer--wide  game__answer--paint">
-              <input name="question1" type="radio" value="paint">
+              <input name="question1" type="radio" value="painting">
               <span>Рисунок</span>
             </label>
           </div>

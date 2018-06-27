@@ -135,5 +135,5 @@ export default {
       points.slow.slowSum + points.lives.livesSum;
 
     return points;
-  }
+  },
 };
