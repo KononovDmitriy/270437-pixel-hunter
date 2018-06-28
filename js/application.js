@@ -39,9 +39,15 @@ class Application {
   }
 
   start() {
-
     this.showIntro();
-    Loader.loadData();
+    const levelData = Loader.loadData();
+
+    levelData.then((data) => {
+      this.initGame(data);
+    })
+    .catch(() => {
+      this.showError();
+    });
   }
 
   initGame(levelData) {
