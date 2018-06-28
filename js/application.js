@@ -12,6 +12,8 @@ import Game2Presenter from './presenters/game2-screen-presenter.js';
 import Game3Presenter from './presenters/game3-screen-presenter.js';
 import StaristicsPresenter from './presenters/statistics-screen-presenter.js';
 
+import ModalErrorPresenter from './presenters/modal-error-presenter.js';
+
 import utils from './utils.js';
 import Loader from './loader.js';
 import GameScreens from './enums/game-screens-enum.js';
@@ -37,25 +39,17 @@ class Application {
   }
 
   start() {
-    const successCallback = (levelData) => {
-      this._gameModel = new GameModel(levelData);
-    };
-
-    const errorCallback = (error) => {
-      this.showError(error);
-    };
 
     this.showIntro();
-    Loader.loadData(successCallback, errorCallback);
+    Loader.loadData();
   }
 
-  initGame() {
-    this._gameModel.initGame();
+  initGame(levelData) {
+    this._gameModel = new GameModel(levelData);
   }
 
   showIntro() {
     const introPresenter = new IntroPresenter();
-
     utils.changeScreen(introPresenter.start(), this._getFooter());
   }
 
@@ -66,7 +60,7 @@ class Application {
   }
 
   showRules() {
-    const rulesPresenter = new RulesPresenter();
+    const rulesPresenter = new RulesPresenter(this._gameModel);
 
     utils.changeScreen(rulesPresenter.start(), this._getFooter(),
         this._getScreenHeader());
@@ -98,8 +92,9 @@ class Application {
         this._getScreenHeader());
   }
 
-  showError(error) {
-    console.dir(error);
+  showError() {
+    const modalError = new ModalErrorPresenter();
+    utils.showModal(modalError.start());
   }
 }
 

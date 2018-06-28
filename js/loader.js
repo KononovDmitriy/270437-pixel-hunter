@@ -1,7 +1,8 @@
+import application from './application.js';
 
 export default class Loader {
 
-  static loadData(successCallback, errorCallback) {
+  static loadData() {
     fetch(`https://es.dump.academy/pixel-hunter/questions`)
       .then((response) => {
         if (response.ok) {
@@ -10,11 +11,11 @@ export default class Loader {
           throw new Error(`${response.status}: ${response.statusText}`);
         }
       })
-      .catch((error) => {
-        errorCallback(error);
-      })
       .then((data) => {
-        successCallback(data);
+        application.initGame(data);
+      })
+      .catch(() => {
+        application.showError();
       });
   }
 }
