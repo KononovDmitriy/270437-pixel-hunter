@@ -5,11 +5,6 @@ export default class Game2View extends AbstractView {
     super();
     this._gameStatus = gameStatus;
     this._statisticsBar = statisticsBar;
-
-    this._gameStatus.currLevel.answers.forEach((el, index) => {
-      console.log(`element = ${index}, type = ${el.type}`);
-    });
-    console.log(`------------------------------------------`);
   }
 
   get template() {
