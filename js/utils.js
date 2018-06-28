@@ -13,6 +13,10 @@ export default {
     mainNode.appendChild(footer);
   },
 
+  showModal: (modal) => {
+    mainNode.appendChild(modal);
+  },
+
   statisticBar: (scores) => {
     const StatsPictures = {
       UNKNOWN: `unknown`,
@@ -135,5 +139,5 @@ export default {
       points.slow.slowSum + points.lives.livesSum;
 
     return points;
-  }
+  },
 };

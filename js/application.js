@@ -12,12 +12,15 @@ import Game2Presenter from './presenters/game2-screen-presenter.js';
 import Game3Presenter from './presenters/game3-screen-presenter.js';
 import StaristicsPresenter from './presenters/statistics-screen-presenter.js';
 
+import ModalErrorPresenter from './presenters/modal-error-presenter.js';
+
 import utils from './utils.js';
+import Loader from './loader.js';
 import GameScreens from './enums/game-screens-enum.js';
 
 class Application {
   constructor() {
-    this._gameModel = new GameModel();
+    this._gameModel = ``;
   }
 
   _getScreenHeader() {
@@ -35,13 +38,24 @@ class Application {
     return footerPresenter.start();
   }
 
-  initGame() {
-    this._gameModel.initGame();
+  start() {
+    this.showIntro();
+    const levelData = Loader.loadData();
+
+    levelData.then((data) => {
+      this.initGame(data);
+    })
+    .catch(() => {
+      this.showError();
+    });
+  }
+
+  initGame(levelData) {
+    this._gameModel = new GameModel(levelData);
   }
 
   showIntro() {
     const introPresenter = new IntroPresenter();
-
     utils.changeScreen(introPresenter.start(), this._getFooter());
   }
 
@@ -52,7 +66,7 @@ class Application {
   }
 
   showRules() {
-    const rulesPresenter = new RulesPresenter();
+    const rulesPresenter = new RulesPresenter(this._gameModel);
 
     utils.changeScreen(rulesPresenter.start(), this._getFooter(),
         this._getScreenHeader());
@@ -61,7 +75,7 @@ class Application {
   showGame() {
     let gamePresenter;
 
-    switch (this._gameModel.gameStatus.currLevel.screen) {
+    switch (this._gameModel.gameStatus.currLevel.type) {
       case GameScreens.SCREEN1:
         gamePresenter = new Game1Presenter(this._gameModel);
         break;
@@ -82,6 +96,11 @@ class Application {
 
     utils.changeScreen(rulesPresenter.start(), this._getFooter(),
         this._getScreenHeader());
+  }
+
+  showError() {
+    const modalError = new ModalErrorPresenter();
+    utils.showModal(modalError.start());
   }
 }
 
