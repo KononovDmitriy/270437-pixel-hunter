@@ -3,7 +3,7 @@ import GameScreens from './../enums/game-screens-enum.js';
 
 export default class GameModel {
   constructor(levelsData) {
-    this._APP_ID = 97991230;
+    this.APP_ID = 97991230;
     this._NUMBER_LEVELS = 10;
     this._Question = {
       PHOTO: `Найдите фото среди изображений`,
@@ -17,7 +17,6 @@ export default class GameModel {
     this._LevelsData = levelsData;
 
     this._gameStatus = {
-      appId: ``,
       userName: ``,
       lives: ``,
       currLevel: ``,

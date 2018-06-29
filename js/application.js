@@ -45,7 +45,6 @@ class Application {
     const levelData = Loader.loadData();
 
     levelData.then((data) => {
-      console.log(`OK`);
       this.initGame(data);
     })
     .catch(() => {
@@ -95,10 +94,24 @@ class Application {
   }
 
   showStatistics() {
-    const rulesPresenter = new StaristicsPresenter(this._gameModel);
+    const formatData = utils.formatData(this._gameModel.gameStatus.scores,
+        this._gameModel.gameStatus.lives);
 
-    utils.changeScreen(rulesPresenter.start(), this._getFooter(),
-        this._getScreenHeader());
+    Loader.saveStatistic(this._gameModel.APP_ID,
+        this._gameModel.gameStatus.userName, formatData)
+    .then(() => {
+      Loader.loadStatistic(this._gameModel.APP_ID,
+          this._gameModel.gameStatus.userName)
+      .then((data) => {
+        const statisticsPresenter = new StaristicsPresenter(this._gameModel, data);
+
+        utils.changeScreen(statisticsPresenter.start(), this._getFooter(),
+            this._getScreenHeader());
+      });
+    })
+    .catch(() => {
+      this.showError();
+    });
   }
 
   showError() {

@@ -1,109 +1,82 @@
 import AbstractView from './abstract-view.js';
 
 export default class ScreenStats extends AbstractView {
-  constructor(result, statisticsBar) {
+  constructor(result) {
     super();
+
     this._result = result;
-    this._statisticsBar = statisticsBar;
+
+    this._currNumber = ``;
+    this._currScore = ``;
+    this._currStatusBar = ``;
   }
 
   get template() {
     return `
-      <div class="result">
-        <h1>${(this._result !== -1) ? `Победа!` : `Поражение!`}</h1>
-        <table class="result__table">
+        <h1>${(this._result[0].score !== -1) ? `Победа!` : `Поражение!`}</h1>`;
+  }
+
+  get resultTable() {
+    return `
+      <table class="result__table">
+        <tr>
+          <td class="result__number">${this._currNumber}.</td>
+          <td colspan="2">
+            ${this._currStatusBar}
+          </td>
+            ${(this._currScore !== -1) ? `
+              <td class="result__points">×&nbsp;100</td>
+              <td class="result__total">${this._currScore.answer.answSum}</td>` : `
+              <td class="result__points"></td>
+              <td class="result__total  result__total--final">fail</td>`}
+        </tr>
+        ${(this._currScore !== -1 && this._currScore.fast.fastCnt > 0) ? `
           <tr>
-            <td class="result__number">1.</td>
-            <td colspan="2">
-              ${this._statisticsBar}
-            </td>
-              ${(this._result !== -1) ? `
-                <td class="result__points">×&nbsp;100</td>
-                <td class="result__total">${this._result.answer.answSum}</td>` : `
-                <td class="result__points"></td>
-                <td class="result__total  result__total--final">fail</td>`}
-          </tr>
-          ${(this._result !== -1 && this._result.fast.fastCnt > 0) ? `
-            <tr>
-            <td></td>
-              <td class="result__extra">Бонус за скорость:</td>
-              <td class="result__extra">${this._result.fast.fastCnt}&nbsp;<span class="stats__result stats__result--fast"></span></td>
-              <td class="result__points">×&nbsp;50</td>
-              <td class="result__total">${this._result.fast.fastSum}</td>
-            </tr>` : ``}
-          ${(this._result !== -1 && this._result.lives.livesCnt > 0) ? `
-            <tr>
-              <td></td>
-              <td class="result__extra">Бонус за жизни:</td>
-              <td class="result__extra">${this._result.lives.livesCnt}&nbsp;<span class="stats__result stats__result--alive"></span></td>
-              <td class="result__points">×&nbsp;50</td>
-              <td class="result__total">${this._result.lives.livesSum}</td>
-            </tr>` : ``}
-          ${(this._result !== -1 && this._result.slow.slowCnt > 0) ? `
-            <tr>
-              <td></td>
-              <td class="result__extra">Штраф за медлительность:</td>
-              <td class="result__extra">${this._result.slow.slowCnt}&nbsp;<span class="stats__result stats__result--slow"></span></td>
-              <td class="result__points">×&nbsp;50</td>
-              <td class="result__total">${this._result.slow.slowSum}</td>
-            </tr>` : ``}
-          ${(this._result !== -1) ? `
-            <tr>
-              <td colspan="5" class="result__total  result__total--final">${this._result.scores}</td>
-            </tr>` : ``}
-        </table>
-        <table class="result__table">
-          <tr>
-            <td class="result__number">2.</td>
-            <td>
-              <ul class="stats">
-                <li class="stats__result stats__result--wrong"></li>
-                <li class="stats__result stats__result--slow"></li>
-                <li class="stats__result stats__result--fast"></li>
-                <li class="stats__result stats__result--correct"></li>
-                <li class="stats__result stats__result--wrong"></li>
-                <li class="stats__result stats__result--unknown"></li>
-                <li class="stats__result stats__result--slow"></li>
-                <li class="stats__result stats__result--wrong"></li>
-                <li class="stats__result stats__result--fast"></li>
-                <li class="stats__result stats__result--wrong"></li>
-              </ul>
-            </td>
-            <td class="result__total"></td>
-            <td class="result__total  result__total--final">fail</td>
-          </tr>
-        </table>
-        <table class="result__table">
-          <tr>
-            <td class="result__number">3.</td>
-            <td colspan="2">
-              <ul class="stats">
-                <li class="stats__result stats__result--wrong"></li>
-                <li class="stats__result stats__result--slow"></li>
-                <li class="stats__result stats__result--fast"></li>
-                <li class="stats__result stats__result--correct"></li>
-                <li class="stats__result stats__result--wrong"></li>
-                <li class="stats__result stats__result--unknown"></li>
-                <li class="stats__result stats__result--slow"></li>
-                <li class="stats__result stats__result--unknown"></li>
-                <li class="stats__result stats__result--fast"></li>
-                <li class="stats__result stats__result--unknown"></li>
-              </ul>
-            </td>
-            <td class="result__points">×&nbsp;100</td>
-            <td class="result__total">900</td>
-          </tr>
+          <td></td>
+            <td class="result__extra">Бонус за скорость:</td>
+            <td class="result__extra">${this._currScore.fast.fastCnt}&nbsp;<span class="stats__result stats__result--fast"></span></td>
+            <td class="result__points">×&nbsp;50</td>
+            <td class="result__total">${this._currScore.fast.fastSum}</td>
+          </tr>` : ``}
+        ${(this._currScore !== -1 && this._currScore.lives.livesCnt > 0) ? `
           <tr>
             <td></td>
             <td class="result__extra">Бонус за жизни:</td>
-            <td class="result__extra">2&nbsp;<span class="stats__result stats__result--alive"></span></td>
+            <td class="result__extra">${this._currScore.lives.livesCnt}&nbsp;<span class="stats__result stats__result--alive"></span></td>
             <td class="result__points">×&nbsp;50</td>
-            <td class="result__total">100</td>
-          </tr>
+            <td class="result__total">${this._currScore.lives.livesSum}</td>
+          </tr>` : ``}
+        ${(this._currScore !== -1 && this._currScore.slow.slowCnt > 0) ? `
           <tr>
-            <td colspan="5" class="result__total  result__total--final">950</td>
-          </tr>
-        </table>
-      </div>`;
+            <td></td>
+            <td class="result__extra">Штраф за медлительность:</td>
+            <td class="result__extra">${this._currScore.slow.slowCnt}&nbsp;<span class="stats__result stats__result--slow"></span></td>
+            <td class="result__points">×&nbsp;50</td>
+            <td class="result__total">${this._currScore.slow.slowSum}</td>
+          </tr>` : ``}
+        ${(this._currScore !== -1) ? `
+          <tr>
+            <td colspan="5" class="result__total  result__total--final">${this._currScore.scores}</td>
+          </tr>` : ``}
+      </table>
+    `;
+  }
+
+  render() {
+    const table = this._result.map((el) => {
+      this._currNumber = el.number;
+      this._currScore = el.score;
+      this._currStatusBar = el.statisticBar;
+
+      return this.resultTable;
+    }).join(``);
+
+    const screen = document.createElement(`div`);
+    screen.classList.add(`result`);
+
+    screen.innerHTML = this.template;
+    screen.innerHTML += table;
+
+    return screen;
   }
 }

@@ -3,17 +3,10 @@ export default class {
     throw new Error(`Template is required`);
   }
 
-  render(footer, header) {
+  render() {
     const element = document.createElement(`div`);
     element.innerHTML = this.template;
 
-    if (footer) {
-      element.appendChild(footer);
-    }
-
-    if (header) {
-      element.insertBefore(header, element.firstChild);
-    }
     return element;
   }
 

@@ -140,4 +140,13 @@ export default {
 
     return points;
   },
+
+  formatData: (gameScoring, gameLives) => {
+    return JSON.stringify(
+        {
+          lives: gameLives,
+          scores: gameScoring
+        }
+    );
+  }
 };
