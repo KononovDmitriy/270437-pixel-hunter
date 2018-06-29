@@ -13,6 +13,7 @@ import Game3Presenter from './presenters/game3-screen-presenter.js';
 import StaristicsPresenter from './presenters/statistics-screen-presenter.js';
 
 import ModalErrorPresenter from './presenters/modal-error-presenter.js';
+import ModalConfirmPresenter from './presenters/modal-confirm-presenter.js';
 
 import utils from './utils.js';
 import Loader from './loader.js';
@@ -40,9 +41,11 @@ class Application {
 
   start() {
     this.showIntro();
+
     const levelData = Loader.loadData();
 
     levelData.then((data) => {
+      console.log(`OK`);
       this.initGame(data);
     })
     .catch(() => {
@@ -99,8 +102,11 @@ class Application {
   }
 
   showError() {
-    const modalError = new ModalErrorPresenter();
-    utils.showModal(modalError.start());
+    utils.showModal(new ModalErrorPresenter().start());
+  }
+
+  showConfirm() {
+    utils.showModal(new ModalConfirmPresenter().start());
   }
 }
 

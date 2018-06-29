@@ -27,13 +27,14 @@ export default class RulesView extends AbstractView {
 
   bind(screenElement) {
     const continueBtn = screenElement.querySelector(`.rules__button`);
+    const inputElement = screenElement.querySelector(`.rules__input`);
 
     screenElement.querySelector(`.rules__form`).addEventListener(`submit`, (evt) => {
       evt.preventDefault();
-      this.viewCallback(evt.target[0].value);
+      this.viewCallback(inputElement.value);
     });
 
-    screenElement.querySelector(`.rules__input`).addEventListener(`input`, (evt) => {
+    inputElement.addEventListener(`input`, (evt) => {
       if (evt.target.value === ``) {
         continueBtn.disabled = true;
         return false;
