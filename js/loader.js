@@ -11,7 +11,7 @@ const checkStatus = (response) => {
   }
 };
 
-const parsingJson = (response) => {
+const parseJson = (response) => {
   return response.json();
 };
 
@@ -20,7 +20,7 @@ export default class Loader {
   static loadData() {
     return fetch(restApiAddresses.LEVELS_DATA)
       .then(checkStatus)
-      .then(parsingJson);
+      .then(parseJson);
   }
 
   static saveStatistic(appId, userName, data) {
@@ -43,6 +43,6 @@ export default class Loader {
   static loadStatistic(appId, userName) {
     return fetch(`${restApiAddresses.STATISTICS}/${appId}-${userName}`)
       .then(checkStatus)
-      .then(parsingJson);
+      .then(parseJson);
   }
 }

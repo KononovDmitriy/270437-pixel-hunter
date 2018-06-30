@@ -99,15 +99,13 @@ class Application {
 
     Loader.saveStatistic(this._gameModel.APP_ID,
         this._gameModel.gameStatus.userName, formatData)
-    .then(() => {
-      Loader.loadStatistic(this._gameModel.APP_ID,
-          this._gameModel.gameStatus.userName)
-      .then((data) => {
-        const statisticsPresenter = new StaristicsPresenter(this._gameModel, data);
+    .then(() => Loader.loadStatistic(this._gameModel.APP_ID,
+        this._gameModel.gameStatus.userName))
+    .then((data) => {
+      const statisticsPresenter = new StaristicsPresenter(this._gameModel, data);
 
-        utils.changeScreen(statisticsPresenter.start(), this._getFooter(),
-            this._getScreenHeader());
-      });
+      utils.changeScreen(statisticsPresenter.start(), this._getFooter(),
+          this._getScreenHeader());
     })
     .catch(() => {
       this.showError();

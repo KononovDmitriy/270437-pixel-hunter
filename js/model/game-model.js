@@ -17,15 +17,15 @@ export default class GameModel {
     this._LevelsData = levelsData;
 
     this._gameStatus = {
-      userName: ``,
-      lives: ``,
-      currLevel: ``,
-      currLevelNum: ``,
-      scores: ``
+      userName: null,
+      lives: null,
+      currLevel: null,
+      currLevelNum: null,
+      scores: null
     };
 
-    this._timer = ``;
-    this._intervalId = ``;
+    this._timer = null;
+    this._intervalId = null;
   }
 
   get gameStatus() {
