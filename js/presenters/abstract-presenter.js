@@ -3,7 +3,7 @@ export default class AbstractPresenter {
     this._gameModel = gameModel;
     this._view = view;
 
-    this._view.viewCallback = (answer) => {
+    this._view.callback = (answer) => {
       this.callback(answer);
     };
   }

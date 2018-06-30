@@ -31,7 +31,7 @@ export default class RulesView extends AbstractView {
 
     screenElement.querySelector(`.rules__form`).addEventListener(`submit`, (evt) => {
       evt.preventDefault();
-      this.viewCallback(inputElement.value);
+      this.callback(inputElement.value);
     });
 
     inputElement.addEventListener(`input`, (evt) => {
@@ -45,7 +45,7 @@ export default class RulesView extends AbstractView {
     });
   }
 
-  viewCallback() {
+  callback() {
     throw new Error(`rulesCallback is required`);
   }
 }

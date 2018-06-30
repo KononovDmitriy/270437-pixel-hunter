@@ -36,18 +36,18 @@ export default class ModalConfirm extends AbstractView {
 
         switch (evt.target.name) {
           case `ok_button`:
-            this.viewОкCallback();
+            this.onButtonOkClick();
             break;
           case `cancel_button`:
-            this.viewCancelCallback();
+            this.onButtonCancelClick();
             break;
           case `exit_button`:
-            this.viewCancelCallback();
+            this.onButtonCancelClick();
             break;
         }
       });
   }
 
-  viewОкCallback() {}
-  viewCancelCallback() {}
+  onButtonOkClick() {}
+  onButtonCancelClick() {}
 }

@@ -64,8 +64,8 @@ export default class Game1View extends AbstractView {
 
   _getResult(inputGrp1, inputGrp2) {
     const answer = {
-      img1: ``,
-      img2: ``
+      img1: null,
+      img2: null
     };
 
     for (let input of inputGrp1) {
@@ -90,10 +90,10 @@ export default class Game1View extends AbstractView {
     screenElement.querySelector(`.game__content`).
       addEventListener(`change`, () => {
         if (this._checkResult(inputGrp1, inputGrp2)) {
-          this.viewCallback(this._getResult(inputGrp1, inputGrp2));
+          this.callback(this._getResult(inputGrp1, inputGrp2));
         }
       });
   }
 
-  viewCallback() {}
+  callback() {}
 }
