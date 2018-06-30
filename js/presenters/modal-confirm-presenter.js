@@ -6,20 +6,20 @@ export default class ModalConfirmPresenter extends AbstractPresenter {
   constructor() {
     super(new ModalConfirmView());
 
-    this._view.viewОкCallback = () => {
-      this.modalOkCallback();
+    this._view.onButtonOkClick = () => {
+      this.onButtonOkClick();
     };
 
-    this._view.viewCancelCallback = () => {
-      this.modalCancelCallback();
+    this._view.onButtonCancelClick = () => {
+      this.onButtonCancelClick();
     };
   }
 
-  modalOkCallback() {
+  onButtonOkClick() {
     application.showGreeting();
   }
 
-  modalCancelCallback() {
+  onButtonCancelClick() {
     let element = this._view.element();
 
     if (element.parentNode) {

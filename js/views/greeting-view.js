@@ -25,9 +25,9 @@ export default class ScreenGreeting extends AbstractView {
   bind(screenElement) {
     screenElement.querySelector(`.greeting__continue`).addEventListener(
         `click`, () => {
-          this.viewCallback();
+          this.callback();
         });
   }
 
-  viewCallback() {}
+  callback() {}
 }

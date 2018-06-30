@@ -31,7 +31,7 @@ export default class Game2View extends AbstractView {
 
   _getResult(inputGrp1) {
     const answer = {
-      img1: ``,
+      img1: null,
     };
 
     for (let input of inputGrp1) {
@@ -47,9 +47,9 @@ export default class Game2View extends AbstractView {
     const inputGrp1 = screenElement.querySelectorAll(`input[name="question1"]`);
     screenElement.querySelector(`.game__content`).
       addEventListener(`change`, () => {
-        this.viewCallback(this._getResult(inputGrp1));
+        this.callback(this._getResult(inputGrp1));
       });
   }
 
-  viewCallback() {}
+  callback() {}
 }

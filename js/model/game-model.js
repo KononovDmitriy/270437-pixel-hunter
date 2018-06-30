@@ -1,19 +1,19 @@
 import Times from './../enums/times-enum.js';
 import GameScreens from './../enums/game-screens-enum.js';
 
+const NUMBER_LEVELS = 10;
+const Question = {
+  PHOTO: `Найдите фото среди изображений`,
+  PAINTING: `Найдите рисунок среди изображений`
+};
+const AnswerType = {
+  PAINTING: `painting`,
+  PHOTO: `photo`
+};
+
 export default class GameModel {
   constructor(levelsData) {
     this.APP_ID = 97991230;
-    this._NUMBER_LEVELS = 10;
-    this._Question = {
-      PHOTO: `Найдите фото среди изображений`,
-      PAINTING: `Найдите рисунок среди изображений`
-    };
-    this.AnswerType = {
-      PAINTING: `painting`,
-      PHOTO: `photo`
-    };
-
     this._LevelsData = levelsData;
 
     this._gameStatus = {
@@ -47,13 +47,13 @@ export default class GameModel {
 
   _checkScreenGame3(answer) {
     const goodAnswer =
-      (this._gameStatus.currLevel.question === this._Question.PHOTO) ?
-        this.AnswerType.PHOTO : this.AnswerType.PAINTING;
+      (this._gameStatus.currLevel.question === Question.PHOTO) ?
+        AnswerType.PHOTO : AnswerType.PAINTING;
 
     return answer.img1 === goodAnswer;
   }
 
-  _checkresult(answer) {
+  _checkResult(answer) {
     let result;
 
     switch (this._gameStatus.currLevel.type) {
@@ -73,7 +73,7 @@ export default class GameModel {
   pushAnswer(answer) {
     this._gameStatus.scores.push(
         {
-          answer: (answer) ? this._checkresult(answer) : false,
+          answer: (answer) ? this._checkResult(answer) : false,
           time: this._timer
         }
     );
@@ -88,7 +88,7 @@ export default class GameModel {
       }
     }
 
-    if (!(this._gameStatus.scores.length < this._NUMBER_LEVELS)) {
+    if (!(this._gameStatus.scores.length < NUMBER_LEVELS)) {
       return true;
     }
 
@@ -99,7 +99,7 @@ export default class GameModel {
 
   initGame() {
     this._gameStatus = {
-      userName: ``,
+      userName: `Гость`,
       lives: 3,
       currLevel: this._LevelsData[0],
       currLevelNum: 0,

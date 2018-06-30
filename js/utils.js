@@ -1,6 +1,26 @@
 import Times from './enums/times-enum.js';
 const mainNode = document.querySelector(`.central`);
 
+const StatsPictures = {
+  UNKNOWN: `unknown`,
+  CORRECT: `correct`,
+  WRONG: `wrong`,
+  FAST: `fast`,
+  SLOW: `slow`
+};
+
+const Scores = {
+  ANSWER: 100,
+  FAST_ANSWER: 50,
+  SLOW_ANSWER: 50,
+  LIVE: 50
+};
+
+const ErrorMessages = {
+  NOT_ARRAY: `playerAnswers expected array`,
+  NOT_NUMBER: `playerLife expected number`
+};
+
 export default {
   changeScreen: (mainScreen, footer, header) => {
     mainNode.innerHTML = ``;
@@ -18,13 +38,7 @@ export default {
   },
 
   statisticBar: (scores) => {
-    const StatsPictures = {
-      UNKNOWN: `unknown`,
-      CORRECT: `correct`,
-      WRONG: `wrong`,
-      FAST: `fast`,
-      SLOW: `slow`
-    };
+
 
     const getUlTemplate = (list) => {
       return `<ul class="stats">${list}</ul>`;
@@ -69,17 +83,6 @@ export default {
   },
 
   scoring: (playerAnswers, playerLife) => {
-    const Scores = {
-      ANSWER: 100,
-      FAST_ANSWER: 50,
-      SLOW_ANSWER: 50,
-      LIVE: 50
-    };
-
-    const ErrorMessages = {
-      NOT_ARRAY: `playerAnswers expected array`,
-      NOT_NUMBER: `playerLife expected number`
-    };
 
     if (!Array.isArray(playerAnswers)) {
       throw new Error(ErrorMessages.NOT_ARRAY);
@@ -93,18 +96,18 @@ export default {
       return -1;
     }
 
-    const points = playerAnswers.reduce((pointsSum, curEl) => {
+    const points = playerAnswers.reduce((pointsSum, currentElement) => {
 
-      if (curEl.answer) {
+      if (currentElement.answer) {
         pointsSum.answer.positiveAnswCnt++;
         pointsSum.answer.answSum += Scores.ANSWER;
 
-        if (curEl.time > Times.FAST_ANSWER) {
+        if (currentElement.time > Times.FAST_ANSWER) {
           pointsSum.fast.fastCnt++;
           pointsSum.fast.fastSum += Scores.FAST_ANSWER;
         }
 
-        if (curEl.time < Times.SLOW_ANSWER) {
+        if (currentElement.time < Times.SLOW_ANSWER) {
           pointsSum.slow.slowCnt++;
           pointsSum.slow.slowSum -= Scores.SLOW_ANSWER;
         }

@@ -43,11 +43,11 @@ export default class HeaderGameView extends AbstractView {
 
   bind(screenElement) {
     screenElement.querySelector(`button`).addEventListener(`click`, () => {
-      this.viewCallback();
+      this.callback();
     });
   }
 
-  viewCallback() {}
+  callback() {}
 
   element() {
     this._livesArr = [];

@@ -25,10 +25,10 @@ export default class ScreenHeader extends AbstractView {
 
   bind(screenElement) {
     screenElement.querySelector(`button`).addEventListener(`click`, () => {
-      this.viewCallback();
+      this.callback();
     });
   }
 
-  viewCallback() {}
+  callback() {}
 
 }
