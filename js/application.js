@@ -21,7 +21,7 @@ import GameScreens from './enums/game-screens-enum.js';
 
 class Application {
   constructor() {
-    this._gameModel = ``;
+    this._gameModel = null;
   }
 
   _getScreenHeader() {

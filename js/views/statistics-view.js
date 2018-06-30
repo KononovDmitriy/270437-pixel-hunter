@@ -6,9 +6,9 @@ export default class ScreenStats extends AbstractView {
 
     this._result = result;
 
-    this._currNumber = ``;
-    this._currScore = ``;
-    this._currStatusBar = ``;
+    this._currNumber = null;
+    this._currScore = null;
+    this._currStatusBar = null;
   }
 
   get template() {

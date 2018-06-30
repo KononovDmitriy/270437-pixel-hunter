@@ -4,7 +4,7 @@ export default class HeaderGameView extends AbstractView {
   constructor(lives) {
     super();
     this._lives = lives;
-    this._timer = ``;
+    this._timer = null;
   }
 
   get template() {
