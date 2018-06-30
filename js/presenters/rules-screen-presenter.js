@@ -8,8 +8,9 @@ export default class FooterPresenter extends AbstractPresenter {
     this._gameModel = gameModel;
   }
 
-  callback() {
+  callback(name) {
     this._gameModel.initGame();
+    this._gameModel.userName = name;
     application.showGame();
   }
 }

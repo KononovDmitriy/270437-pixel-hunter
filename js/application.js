@@ -13,6 +13,7 @@ import Game3Presenter from './presenters/game3-screen-presenter.js';
 import StaristicsPresenter from './presenters/statistics-screen-presenter.js';
 
 import ModalErrorPresenter from './presenters/modal-error-presenter.js';
+import ModalConfirmPresenter from './presenters/modal-confirm-presenter.js';
 
 import utils from './utils.js';
 import Loader from './loader.js';
@@ -20,7 +21,7 @@ import GameScreens from './enums/game-screens-enum.js';
 
 class Application {
   constructor() {
-    this._gameModel = ``;
+    this._gameModel = null;
   }
 
   _getScreenHeader() {
@@ -40,6 +41,7 @@ class Application {
 
   start() {
     this.showIntro();
+
     const levelData = Loader.loadData();
 
     levelData.then((data) => {
@@ -92,15 +94,30 @@ class Application {
   }
 
   showStatistics() {
-    const rulesPresenter = new StaristicsPresenter(this._gameModel);
+    const formatData = utils.formatData(this._gameModel.gameStatus.scores,
+        this._gameModel.gameStatus.lives);
 
-    utils.changeScreen(rulesPresenter.start(), this._getFooter(),
-        this._getScreenHeader());
+    Loader.saveStatistic(this._gameModel.APP_ID,
+        this._gameModel.gameStatus.userName, formatData)
+    .then(() => Loader.loadStatistic(this._gameModel.APP_ID,
+        this._gameModel.gameStatus.userName))
+    .then((data) => {
+      const statisticsPresenter = new StaristicsPresenter(this._gameModel, data);
+
+      utils.changeScreen(statisticsPresenter.start(), this._getFooter(),
+          this._getScreenHeader());
+    })
+    .catch(() => {
+      this.showError();
+    });
   }
 
   showError() {
-    const modalError = new ModalErrorPresenter();
-    utils.showModal(modalError.start());
+    utils.showModal(new ModalErrorPresenter().start());
+  }
+
+  showConfirm() {
+    utils.showModal(new ModalConfirmPresenter().start());
   }
 }
 

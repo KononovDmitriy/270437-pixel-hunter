@@ -3,6 +3,7 @@ import GameScreens from './../enums/game-screens-enum.js';
 
 export default class GameModel {
   constructor(levelsData) {
+    this.APP_ID = 97991230;
     this._NUMBER_LEVELS = 10;
     this._Question = {
       PHOTO: `Найдите фото среди изображений`,
@@ -16,23 +17,23 @@ export default class GameModel {
     this._LevelsData = levelsData;
 
     this._gameStatus = {
-      playerName: ``,
-      lives: 3,
-      currLevel: this._LevelsData[0],
-      currLevelNum: 0,
-      scores: []
+      userName: null,
+      lives: null,
+      currLevel: null,
+      currLevelNum: null,
+      scores: null
     };
 
-    this._timer = ``;
-    this._intervalId = ``;
+    this._timer = null;
+    this._intervalId = null;
   }
 
   get gameStatus() {
     return this._gameStatus;
   }
 
-  set playerName(name) {
-    this._gameStatus.playerName = name;
+  set userName(name) {
+    this._gameStatus.userName = name;
   }
 
   _checkScreenGame1(answer) {
@@ -98,7 +99,7 @@ export default class GameModel {
 
   initGame() {
     this._gameStatus = {
-      playerName: ``,
+      userName: ``,
       lives: 3,
       currLevel: this._LevelsData[0],
       currLevelNum: 0,
@@ -112,6 +113,7 @@ export default class GameModel {
   }
 
   startTimer() {
+    clearInterval(this._intervalId);
     this._timer = Times.START_TIME;
 
     this._intervalId = setInterval(() => {

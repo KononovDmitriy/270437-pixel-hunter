@@ -26,7 +26,6 @@ export default class FooterPresenter extends AbstractPresenter {
   }
 
   callback() {
-    this._gameModel.stopTimer();
-    application.showGreeting();
+    application.showConfirm();
   }
 }
