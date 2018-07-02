@@ -7,7 +7,7 @@ import utils from './../utils.js';
 export default class Game3ScreenPresenter extends AbstractPresenter {
   constructor(gameModel) {
     super(new Game3View(gameModel.gameStatus,
-        utils.statisticBar(gameModel.gameStatus.scores)), gameModel);
+        utils.getStatisticBar(gameModel.gameStatus.scores)), gameModel);
   }
 
   callback(answer) {

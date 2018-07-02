@@ -37,7 +37,7 @@ export default {
     mainNode.appendChild(modal);
   },
 
-  statisticBar: (scores) => {
+  getStatisticBar: (scores) => {
 
 
     const getUlTemplate = (list) => {

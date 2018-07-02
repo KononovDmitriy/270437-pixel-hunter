@@ -13,7 +13,7 @@ const getResults = (gameStatus, gameHistory) => {
     result.push({
       number: index + 1,
       score: utils.scoring(el.scores, el.lives),
-      statisticBar: utils.statisticBar(el.scores)
+      statisticBar: utils.getStatisticBar(el.scores)
     });
   });
 
