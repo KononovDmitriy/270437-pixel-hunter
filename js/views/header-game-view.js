@@ -1,5 +1,5 @@
 import AbstractView from './abstract-view.js';
-import MAXIMUM_NUMBERS_LIVES from './../enums/game-maximum-numbers-lives-enum.js';
+import {MAXIMUM_NUMBERS_LIVES} from './../constants.js';
 import Times from './../enums/times-enum.js';
 
 export default class HeaderGameView extends AbstractView {
