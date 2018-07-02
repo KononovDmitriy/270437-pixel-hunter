@@ -1,4 +1,7 @@
 import Times from './enums/times-enum.js';
+import MAXIMUM_NUMBERS_LIVES from './enums/game-maximum-numbers-lives-enum.js';
+import NUMBER_LEVELS from './enums/game-number-levels-enum.js';
+
 const mainNode = document.querySelector(`.central`);
 
 const StatsPictures = {
@@ -15,6 +18,8 @@ const Scores = {
   SLOW_ANSWER: 50,
   LIVE: 50
 };
+
+const GAME_OVER = -1;
 
 const ErrorMessages = {
   NOT_ARRAY: `playerAnswers expected array`,
@@ -50,7 +55,7 @@ export default {
 
     const classes = [];
     let currentClass;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < NUMBER_LEVELS; i++) {
       if (scores[i] !== undefined) {
         if (scores[i].answer) {
 
@@ -134,8 +139,8 @@ export default {
       scores: 0
     });
 
-    if (points.answer.badAnswer > 3) {
-      return -1;
+    if (points.answer.badAnswer > MAXIMUM_NUMBERS_LIVES) {
+      return GAME_OVER;
     }
 
     points.lives.livesCnt = playerLife;

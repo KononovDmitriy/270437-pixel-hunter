@@ -1,7 +1,8 @@
 import Times from './../enums/times-enum.js';
 import GameScreens from './../enums/game-screens-enum.js';
+import MAXIMUM_NUMBERS_LIVES from './../enums/game-maximum-numbers-lives-enum.js';
+import NUMBER_LEVELS from './../enums/game-number-levels-enum.js';
 
-const NUMBER_LEVELS = 10;
 const Question = {
   PHOTO: `Найдите фото среди изображений`,
   PAINTING: `Найдите рисунок среди изображений`
@@ -100,7 +101,7 @@ export default class GameModel {
   initGame() {
     this._gameStatus = {
       userName: `Гость`,
-      lives: 3,
+      lives: MAXIMUM_NUMBERS_LIVES,
       currentLevel: this._LevelsData[0],
       currentLevelNum: 0,
       scores: []
