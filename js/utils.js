@@ -92,10 +92,6 @@ export default {
       throw new Error(ErrorMessages.NOT_NUMBER);
     }
 
-    if (playerAnswers.length < 10) {
-      return -1;
-    }
-
     const points = playerAnswers.reduce((pointsSum, currentElement) => {
 
       if (currentElement.answer) {
@@ -111,6 +107,8 @@ export default {
           pointsSum.slow.slowCnt++;
           pointsSum.slow.slowSum -= Scores.SLOW_ANSWER;
         }
+      } else {
+        pointsSum.answer.badAnswer++;
       }
 
       return pointsSum;
@@ -118,7 +116,8 @@ export default {
     }, {
       answer: {
         positiveAnswCnt: 0,
-        answSum: 0
+        answSum: 0,
+        badAnswer: 0
       },
       fast: {
         fastCnt: 0,
@@ -134,6 +133,10 @@ export default {
       },
       scores: 0
     });
+
+    if (points.answer.badAnswer > 3) {
+      return -1;
+    }
 
     points.lives.livesCnt = playerLife;
     points.lives.livesSum = Scores.LIVE * playerLife;
