@@ -77,7 +77,7 @@ class Application {
   showGame() {
     let gamePresenter;
 
-    switch (this._gameModel.gameStatus.currLevel.type) {
+    switch (this._gameModel.gameStatus.currentLevel.type) {
       case GameScreens.SCREEN1:
         gamePresenter = new Game1Presenter(this._gameModel);
         break;

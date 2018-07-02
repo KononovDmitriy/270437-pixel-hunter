@@ -4,10 +4,10 @@ import application from './../application.js';
 
 import utils from './../utils.js';
 
-export default class FooterPresenter extends AbstractPresenter {
+export default class Game2ScreenPresenter extends AbstractPresenter {
   constructor(gameModel) {
     super(new Game2View(gameModel.gameStatus,
-        utils.statisticBar(gameModel.gameStatus.scores)), gameModel);
+        utils.getStatisticBar(gameModel.gameStatus.scores)), gameModel);
   }
 
   callback(answer) {

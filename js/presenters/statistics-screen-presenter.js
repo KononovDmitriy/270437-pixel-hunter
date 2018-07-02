@@ -13,14 +13,14 @@ const getResults = (gameStatus, gameHistory) => {
     result.push({
       number: index + 1,
       score: utils.scoring(el.scores, el.lives),
-      statisticBar: utils.statisticBar(el.scores)
+      statisticBar: utils.getStatisticBar(el.scores)
     });
   });
 
   return result;
 };
 
-export default class StatisticsPresenter extends AbstractPresenter {
+export default class StatisticsScreenPresenter extends AbstractPresenter {
   constructor(gameModel, gameHistory) {
     super(new StatisticsView(getResults(gameModel.gameStatus, gameHistory)));
   }

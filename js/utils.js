@@ -1,4 +1,6 @@
 import Times from './enums/times-enum.js';
+import {NUMBER_LEVELS, MAXIMUM_NUMBERS_LIVES} from './constants.js';
+
 const mainNode = document.querySelector(`.central`);
 
 const StatsPictures = {
@@ -15,6 +17,8 @@ const Scores = {
   SLOW_ANSWER: 50,
   LIVE: 50
 };
+
+const GAME_OVER = -1;
 
 const ErrorMessages = {
   NOT_ARRAY: `playerAnswers expected array`,
@@ -37,7 +41,7 @@ export default {
     mainNode.appendChild(modal);
   },
 
-  statisticBar: (scores) => {
+  getStatisticBar: (scores) => {
 
 
     const getUlTemplate = (list) => {
@@ -50,7 +54,7 @@ export default {
 
     const classes = [];
     let currentClass;
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < NUMBER_LEVELS; i++) {
       if (scores[i] !== undefined) {
         if (scores[i].answer) {
 
@@ -92,10 +96,6 @@ export default {
       throw new Error(ErrorMessages.NOT_NUMBER);
     }
 
-    if (playerAnswers.length < 10) {
-      return -1;
-    }
-
     const points = playerAnswers.reduce((pointsSum, currentElement) => {
 
       if (currentElement.answer) {
@@ -111,6 +111,8 @@ export default {
           pointsSum.slow.slowCnt++;
           pointsSum.slow.slowSum -= Scores.SLOW_ANSWER;
         }
+      } else {
+        pointsSum.answer.badAnswer++;
       }
 
       return pointsSum;
@@ -118,7 +120,8 @@ export default {
     }, {
       answer: {
         positiveAnswCnt: 0,
-        answSum: 0
+        answSum: 0,
+        badAnswer: 0
       },
       fast: {
         fastCnt: 0,
@@ -134,6 +137,10 @@ export default {
       },
       scores: 0
     });
+
+    if (points.answer.badAnswer > MAXIMUM_NUMBERS_LIVES) {
+      return GAME_OVER;
+    }
 
     points.lives.livesCnt = playerLife;
     points.lives.livesSum = Scores.LIVE * playerLife;

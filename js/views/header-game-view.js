@@ -1,4 +1,6 @@
 import AbstractView from './abstract-view.js';
+import {MAXIMUM_NUMBERS_LIVES} from './../constants.js';
+import Times from './../enums/times-enum.js';
 
 export default class HeaderGameView extends AbstractView {
   constructor(lives) {
@@ -26,10 +28,10 @@ export default class HeaderGameView extends AbstractView {
   set timer(time) {
     this._timer.innerHTML = (time) ? time : 0;
 
-    if (time <= 5 && time > 0) {
+    if (time <= Times.BLINKING_START && time > 0) {
       setTimeout(() => {
         this._timer.innerHTML = ``;
-      }, 500);
+      }, Times.BLINKING_INTERVAL);
     }
   }
 
@@ -52,7 +54,7 @@ export default class HeaderGameView extends AbstractView {
   element() {
     this._livesArr = [];
 
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < MAXIMUM_NUMBERS_LIVES; i++) {
       this._livesArr.unshift((this._lives > 0) ?
         `<img src="img/heart__full.svg" class="game__heart" alt="Life" width="32" height="32">` :
         `<img src="img/heart__empty.svg" class="game__heart" alt="Life" width="32" height="32">`);

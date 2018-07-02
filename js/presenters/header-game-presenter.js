@@ -2,7 +2,7 @@ import AbstractPresenter from './abstract-presenter.js';
 import HeaderGameView from './../views/header-game-view.js';
 import application from './../application.js';
 
-export default class FooterPresenter extends AbstractPresenter {
+export default class HeaderGamePresenter extends AbstractPresenter {
   constructor(gameModel) {
     super(new HeaderGameView(gameModel.gameStatus.lives), gameModel);
 
