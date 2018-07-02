@@ -1,6 +1,4 @@
 import Times from './enums/times-enum.js';
-// import MAXIMUM_NUMBERS_LIVES from './enums/game-maximum-numbers-lives-enum.js';
-// import NUMBER_LEVELS from './enums/game-number-levels-enum.js';
 import {NUMBER_LEVELS, MAXIMUM_NUMBERS_LIVES} from './constants.js';
 
 const mainNode = document.querySelector(`.central`);

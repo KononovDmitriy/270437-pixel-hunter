@@ -1,6 +1,5 @@
 import Times from './../enums/times-enum.js';
 import GameScreens from './../enums/game-screens-enum.js';
-// import MAXIMUM_NUMBERS_LIVES from './../enums/game-maximum-numbers-lives-enum.js';
 import {NUMBER_LEVELS, MAXIMUM_NUMBERS_LIVES} from './../constants.js';
 
 const Question = {
