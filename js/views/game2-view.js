@@ -9,10 +9,10 @@ export default class Game2View extends AbstractView {
 
   get template() {
     return `<div class="game">
-        <p class="game__task">${this._gameStatus.currLevel.question}</p>
+        <p class="game__task">${this._gameStatus.currentLevel.question}</p>
         <form class="game__content  game__content--wide">
           <div class="game__option">
-            <img src="${this._gameStatus.currLevel.answers[0].image.url}" alt="Option 1" width="705" height="455">
+            <img src="${this._gameStatus.currentLevel.answers[0].image.url}" alt="Option 1" width="705" height="455">
             <label class="game__answer  game__answer--photo">
               <input name="question1" type="radio" value="photo">
               <span>Фото</span>
@@ -29,14 +29,14 @@ export default class Game2View extends AbstractView {
       </div>`;
   }
 
-  _getResult(inputGrp1) {
+  _getResult(inputGroup) {
     const answer = {
-      img1: null,
+      image1: null,
     };
 
-    for (let input of inputGrp1) {
+    for (let input of inputGroup) {
       if (input.checked) {
-        answer.img1 = input.value;
+        answer.image1 = input.value;
       }
     }
 
@@ -44,10 +44,10 @@ export default class Game2View extends AbstractView {
   }
 
   bind(screenElement) {
-    const inputGrp1 = screenElement.querySelectorAll(`input[name="question1"]`);
+    const inputGroup = screenElement.querySelectorAll(`input[name="question1"]`);
     screenElement.querySelector(`.game__content`).
       addEventListener(`change`, () => {
-        this.callback(this._getResult(inputGrp1));
+        this.callback(this._getResult(inputGroup));
       });
   }
 

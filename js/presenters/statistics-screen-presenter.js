@@ -20,7 +20,7 @@ const getResults = (gameStatus, gameHistory) => {
   return result;
 };
 
-export default class StatisticsPresenter extends AbstractPresenter {
+export default class StatisticsScreenPresenter extends AbstractPresenter {
   constructor(gameModel, gameHistory) {
     super(new StatisticsView(getResults(gameModel.gameStatus, gameHistory)));
   }

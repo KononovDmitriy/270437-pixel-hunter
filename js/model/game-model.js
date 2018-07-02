@@ -19,8 +19,8 @@ export default class GameModel {
     this._gameStatus = {
       userName: null,
       lives: null,
-      currLevel: null,
-      currLevelNum: null,
+      currentLevel: null,
+      currentLevelNum: null,
       scores: null
     };
 
@@ -37,26 +37,26 @@ export default class GameModel {
   }
 
   _checkScreenGame1(answer) {
-    return answer.img1 === this._gameStatus.currLevel.answers[0].type &&
-      answer.img2 === this._gameStatus.currLevel.answers[1].type;
+    return answer.image1 === this._gameStatus.currentLevel.answers[0].type &&
+      answer.image2 === this._gameStatus.currentLevel.answers[1].type;
   }
 
   _checkScreenGame2(answer) {
-    return answer.img1 === this._gameStatus.currLevel.answers[0].type;
+    return answer.image1 === this._gameStatus.currentLevel.answers[0].type;
   }
 
   _checkScreenGame3(answer) {
     const goodAnswer =
-      (this._gameStatus.currLevel.question === Question.PHOTO) ?
+      (this._gameStatus.currentLevel.question === Question.PHOTO) ?
         AnswerType.PHOTO : AnswerType.PAINTING;
 
-    return answer.img1 === goodAnswer;
+    return answer.image1 === goodAnswer;
   }
 
   _checkResult(answer) {
     let result;
 
-    switch (this._gameStatus.currLevel.type) {
+    switch (this._gameStatus.currentLevel.type) {
       case GameScreens.SCREEN1:
         result = this._checkScreenGame1(answer);
         break;
@@ -101,15 +101,15 @@ export default class GameModel {
     this._gameStatus = {
       userName: `Гость`,
       lives: 3,
-      currLevel: this._LevelsData[0],
-      currLevelNum: 0,
+      currentLevel: this._LevelsData[0],
+      currentLevelNum: 0,
       scores: []
     };
   }
 
   nextLevel() {
-    this._gameStatus.currLevelNum++;
-    this._gameStatus.currLevel = this._LevelsData[this._gameStatus.currLevelNum];
+    this._gameStatus.currentLevelNum++;
+    this._gameStatus.currentLevel = this._LevelsData[this._gameStatus.currentLevelNum];
   }
 
   startTimer() {

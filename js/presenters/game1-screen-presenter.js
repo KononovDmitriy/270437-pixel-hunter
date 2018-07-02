@@ -4,7 +4,7 @@ import application from './../application.js';
 
 import utils from './../utils.js';
 
-export default class Game1Presenter extends AbstractPresenter {
+export default class Game1ScreenPresenter extends AbstractPresenter {
   constructor(gameModel) {
     super(new Game1View(gameModel.gameStatus,
         utils.statisticBar(gameModel.gameStatus.scores)), gameModel);
