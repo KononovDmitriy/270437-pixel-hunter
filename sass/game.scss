@@ -49,6 +49,7 @@
 
 .game__option img {
   pointer-events:none;
+  object-fit: contain;
 }
 
 .game__answer input {
