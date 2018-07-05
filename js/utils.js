@@ -31,6 +31,11 @@ const Question = {
   PAINTING: `Найдите рисунок среди изображений`
 };
 
+const Delays = {
+  BEFORE_CHANGE: 100,
+  DURATION_ANIMATION: 1000
+};
+
 const createNewMainNode = () => {
   const newMainNode = document.createElement(`div`);
   newMainNode.id = `main`;
@@ -63,7 +68,7 @@ export default {
   changeScreenCrossfade: (mainScreen, footer) => {
     const newMainNode = createNewMainNode();
 
-    centralNode.innerHTML = null;
+    centralNode.innerHTML = ``;
     centralNode.appendChild(newMainNode);
 
     setTimeout(() => {
@@ -73,8 +78,8 @@ export default {
       setTimeout(() => {
         newMainNode.appendChild(mainScreen);
         newMainNode.appendChild(footer);
-      }, 1000);
-    }, 100);
+      }, Delays.DURATION_ANIMATION);
+    }, Delays.BEFORE_CHANGE);
   },
 
   showModal: (modal) => {
