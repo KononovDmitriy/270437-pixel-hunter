@@ -1,15 +1,7 @@
 import Times from './../enums/times-enum.js';
 import GameScreens from './../enums/game-screens-enum.js';
 import {NUMBER_LEVELS, MAXIMUM_NUMBERS_LIVES} from './../constants.js';
-
-const Question = {
-  PHOTO: `Найдите фото среди изображений`,
-  PAINTING: `Найдите рисунок среди изображений`
-};
-const AnswerType = {
-  PAINTING: `painting`,
-  PHOTO: `photo`
-};
+import utils from './../utils.js';
 
 export default class GameModel {
   constructor(levelsData) {
@@ -21,7 +13,8 @@ export default class GameModel {
       lives: null,
       currentLevel: null,
       currentLevelNum: null,
-      scores: null
+      scores: null,
+      debug: null
     };
 
     this._timer = null;
@@ -36,6 +29,10 @@ export default class GameModel {
     this._gameStatus.userName = name;
   }
 
+  set debug(parametr) {
+    this._gameStatus.debug = parametr;
+  }
+
   _checkScreenGame1(answer) {
     return answer.image1 === this._gameStatus.currentLevel.answers[0].type &&
       answer.image2 === this._gameStatus.currentLevel.answers[1].type;
@@ -46,9 +43,7 @@ export default class GameModel {
   }
 
   _checkScreenGame3(answer) {
-    const goodAnswer =
-      (this._gameStatus.currentLevel.question === Question.PHOTO) ?
-        AnswerType.PHOTO : AnswerType.PAINTING;
+    const goodAnswer = utils.getQuestion(this._gameStatus.currentLevel.question);
 
     return answer.image1 === goodAnswer;
   }
@@ -103,7 +98,8 @@ export default class GameModel {
       lives: MAXIMUM_NUMBERS_LIVES,
       currentLevel: this._LevelsData[0],
       currentLevelNum: 0,
-      scores: []
+      scores: [],
+      debug: false
     };
   }
 

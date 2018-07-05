@@ -1,10 +1,9 @@
-import AbstractView from './abstract-view.js';
+import AbstractScreenGame from './abstract-screen-game.js';
+import AnswersTypes from './../enums/answers-types-enum.js';
 
-export default class Game1View extends AbstractView {
+export default class Game1View extends AbstractScreenGame {
   constructor(gameStatus, statisticsBar) {
-    super();
-    this._gameStatus = gameStatus;
-    this._statisticsBar = statisticsBar;
+    super(gameStatus, statisticsBar);
   }
 
   get template() {
@@ -18,10 +17,12 @@ export default class Game1View extends AbstractView {
             <label class="game__answer game__answer--photo">
               <input name="question1" type="radio" value="photo">
               <span>Фото</span>
+              <div class="debug__marker debug__marker-margin-top ${this.getDebugClass(this._gameStatus.debug, this._gameStatus.currentLevel.answers[0].type, AnswersTypes.PHOTO)}"></div>
             </label>
             <label class="game__answer game__answer--paint">
               <input name="question1" type="radio" value="painting">
               <span>Рисунок</span>
+              <div class="debug__marker debug__marker-margin-top ${this.getDebugClass(this._gameStatus.debug, this._gameStatus.currentLevel.answers[0].type, AnswersTypes.PAINTING)}"></div>
             </label>
           </div>
           <div class="game__option">
@@ -29,10 +30,12 @@ export default class Game1View extends AbstractView {
             <label class="game__answer  game__answer--photo">
               <input name="question2" type="radio" value="photo">
               <span>Фото</span>
+              <div class="debug__marker debug__marker-margin-top ${this.getDebugClass(this._gameStatus.debug, this._gameStatus.currentLevel.answers[1].type, AnswersTypes.PHOTO)}"></div>
             </label>
             <label class="game__answer  game__answer--paint">
               <input name="question2" type="radio" value="painting">
               <span>Рисунок</span>
+              <div class="debug__marker debug__marker-margin-top ${this.getDebugClass(this._gameStatus.debug, this._gameStatus.currentLevel.answers[1].type, AnswersTypes.PAINTING)}"></div>
             </label>
           </div>
         </form>

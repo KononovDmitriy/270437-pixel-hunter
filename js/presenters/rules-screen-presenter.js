@@ -8,9 +8,11 @@ export default class RulesScreenPresenter extends AbstractPresenter {
     this._gameModel = gameModel;
   }
 
-  callback(name) {
+  callback(gameStatusData) {
     this._gameModel.initGame();
-    this._gameModel.userName = name;
+    this._gameModel.userName = gameStatusData.name;
+    this._gameModel.debug = (gameStatusData.debug) ? true : false;
+
     application.showGame();
   }
 }

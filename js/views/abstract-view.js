@@ -1,3 +1,5 @@
+const HIDE_DEBUG_ELEMENT_CLASS = `debug__display-none`;
+
 export default class {
   get template() {
     throw new Error(`Template is required`);
@@ -19,5 +21,13 @@ export default class {
     }
 
     return this._element;
+  }
+
+  getDebugClass(debug, answerType, pattern) {
+    if (!debug) {
+      return HIDE_DEBUG_ELEMENT_CLASS;
+    }
+
+    return (answerType === pattern) ? `` : HIDE_DEBUG_ELEMENT_CLASS;
   }
 }

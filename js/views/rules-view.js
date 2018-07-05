@@ -21,6 +21,8 @@ export default class RulesView extends AbstractView {
         <form class="rules__form">
           <input class="rules__input" type="text" placeholder="Ваше Имя">
           <button class="rules__button  continue" type="submit" disabled>Go!</button>
+
+          <label class="debug"><input id="debug" type="checkbox"> Отладка (будут показываться правильные ответы)</label>
         </form>
       </div>`;
   }
@@ -28,10 +30,12 @@ export default class RulesView extends AbstractView {
   bind(screenElement) {
     const continueBtn = screenElement.querySelector(`.rules__button`);
     const inputElement = screenElement.querySelector(`.rules__input`);
+    const checkboxDebugElement = screenElement.querySelector(`#debug`);
 
     screenElement.querySelector(`.rules__form`).addEventListener(`submit`, (evt) => {
       evt.preventDefault();
-      this.callback(inputElement.value);
+      this.callback({name: inputElement.value,
+        debug: checkboxDebugElement.checked});
     });
 
     inputElement.addEventListener(`input`, (evt) => {

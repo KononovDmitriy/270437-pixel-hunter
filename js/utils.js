@@ -1,5 +1,6 @@
 import Times from './enums/times-enum.js';
 import {NUMBER_LEVELS, MAXIMUM_NUMBERS_LIVES} from './constants.js';
+import AnswersTypes from './enums/answers-types-enum.js';
 
 const mainNode = document.querySelector(`.central`);
 
@@ -23,6 +24,11 @@ const GAME_OVER = -1;
 const ErrorMessages = {
   NOT_ARRAY: `playerAnswers expected array`,
   NOT_NUMBER: `playerLife expected number`
+};
+
+const Question = {
+  PHOTO: `Найдите фото среди изображений`,
+  PAINTING: `Найдите рисунок среди изображений`
 };
 
 export default {
@@ -158,5 +164,10 @@ export default {
           scores: gameScoring
         }
     );
+  },
+
+  getQuestion: (question) => {
+    return (question === Question.PHOTO) ?
+      AnswersTypes.PHOTO : AnswersTypes.PAINTING;
   }
 };
