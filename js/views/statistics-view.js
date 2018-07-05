@@ -73,7 +73,7 @@ export default class ScreenStats extends AbstractView {
 
     const screen = document.createElement(`div`);
     screen.classList.add(`result`);
-
+    screen.id = `main`;
     screen.innerHTML = this.template;
     screen.innerHTML += table;
 

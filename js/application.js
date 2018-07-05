@@ -64,7 +64,8 @@ class Application {
   showGreeting() {
     const greetingPresenter = new GreetingPresenter();
 
-    utils.changeScreen(greetingPresenter.start(), this._getFooter());
+    // utils.changeScreen(greetingPresenter.start(), this._getFooter());
+    utils.changeScreenCrossfade(greetingPresenter.start(), this._getFooter());
   }
 
   showRules() {

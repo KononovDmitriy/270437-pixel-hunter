@@ -2,7 +2,7 @@ import Times from './enums/times-enum.js';
 import {NUMBER_LEVELS, MAXIMUM_NUMBERS_LIVES} from './constants.js';
 import AnswersTypes from './enums/answers-types-enum.js';
 
-const mainNode = document.querySelector(`.central`);
+const centralNode = document.querySelector(`.central`);
 
 const StatsPictures = {
   UNKNOWN: `unknown`,
@@ -31,20 +31,54 @@ const Question = {
   PAINTING: `Найдите рисунок среди изображений`
 };
 
+const createNewMainNode = () => {
+  const newMainNode = document.createElement(`div`);
+  newMainNode.id = `main`;
+
+  const currMainNode = centralNode.querySelector(`#main`);
+
+  currMainNode.classList.forEach((currentClass) => {
+    newMainNode.classList.add(currentClass);
+  });
+
+  if (currMainNode.querySelector(`.intro`)) {
+    newMainNode.classList.add(`intro`);
+  }
+
+  return newMainNode;
+};
+
 export default {
   changeScreen: (mainScreen, footer, header) => {
-    mainNode.innerHTML = ``;
+    centralNode.innerHTML = ``;
 
     if (header) {
-      mainNode.appendChild(header);
+      centralNode.appendChild(header);
     }
 
-    mainNode.appendChild(mainScreen);
-    mainNode.appendChild(footer);
+    centralNode.appendChild(mainScreen);
+    centralNode.appendChild(footer);
+  },
+
+  changeScreenCrossfade: (mainScreen, footer) => {
+    const newMainNode = createNewMainNode();
+
+    centralNode.innerHTML = null;
+    centralNode.appendChild(newMainNode);
+
+    setTimeout(() => {
+      newMainNode.classList = null;
+      newMainNode.classList.add(`greeting`);
+
+      setTimeout(() => {
+        newMainNode.appendChild(mainScreen);
+        newMainNode.appendChild(footer);
+      }, 1000);
+    }, 100);
   },
 
   showModal: (modal) => {
-    mainNode.appendChild(modal);
+    centralNode.appendChild(modal);
   },
 
   getStatisticBar: (scores) => {

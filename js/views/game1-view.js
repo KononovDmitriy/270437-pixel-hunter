@@ -8,7 +8,7 @@ export default class Game1View extends AbstractScreenGame {
 
   get template() {
     return `
-      <div class="game">
+      <div id="main" class="game">
         <p class="game__task">${this._gameStatus.currentLevel.question}</p>
         <form class="game__content">
           <div class="game__option">

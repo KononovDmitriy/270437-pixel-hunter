@@ -7,7 +7,7 @@ export default class RulesView extends AbstractView {
 
   get template() {
     return `
-      <div class="rules">
+      <div id="main" class="rules">
         <h1 class="rules__title">Правила</h1>
         <p class="rules__description">Угадай 10 раз для каждого изображения фото <img
           src="img/photo_icon.png" width="16" height="16"> или рисунок <img
