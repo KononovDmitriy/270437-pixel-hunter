@@ -19,6 +19,8 @@ import utils from './utils.js';
 import Loader from './loader.js';
 import GameScreens from './enums/game-screens-enum.js';
 
+import {NUMBER_LEVELS} from './constants.js';
+
 class Application {
   constructor() {
     this._gameModel = null;
@@ -39,6 +41,22 @@ class Application {
     return footerPresenter.start();
   }
 
+  _loadImages() {
+    this._gameModel._LevelsData.forEach((levelData) => {
+      levelData.answers.forEach((answer) => {
+        const cachedImage = Loader.loadImage(answer.image.url);
+
+        cachedImage
+        .then((imageUrl) => {
+          console.dir(imageUrl);
+        })
+        .catch(() => {
+          console.dir('error!!!');
+        });
+      });
+    });
+  }
+
   start() {
     this.showIntro();
 
@@ -46,6 +64,9 @@ class Application {
 
     levelData.then((data) => {
       this.initGame(data);
+      console.dir(this._gameModel);
+
+      this._loadImages();
     })
     .catch(() => {
       this.showError();

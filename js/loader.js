@@ -23,6 +23,20 @@ export default class Loader {
       .then(parseJson);
   }
 
+  static loadImage(url) {
+    const requestInit = {
+      method: `GET`,
+      mode: `cors`,
+    };
+
+    const request = new Request(url, requestInit);
+
+    return fetch(request)
+      .then(checkStatus)
+      .then((response) => response.blob())
+      .then((blob) => URL.createObjectURL(blob));
+  }
+
   static saveStatistic(appId, userName, data) {
 
     const requestInit = {
